@@ -10,6 +10,16 @@ import androidx.annotation.Nullable;
  */
 public class StatusBar {
 
+
+    /**
+     * Get the height in dp of the status bar.
+     *
+     * If window is null, the default size of the status bar will be returned using context.
+     *
+     * @param context The context to get resources
+     * @param window The window of the current activity
+     * @return The height in dp of the status bar
+     */
     public static int getHeight(Context context, @Nullable Window window) {
         if (window != null) {
             View view = window.getDecorView().getRootView();

@@ -10,6 +10,15 @@ import androidx.annotation.Nullable;
  */
 public class NavigationBar {
 
+    /**
+     * Get the height in dp of the navigation bar.
+     *
+     * If window is null, the default size of the navigation bar will be returned using context.
+     *
+     * @param context The context to get resources
+     * @param window The window of the current activity
+     * @return The height in dp of the navigation bar
+     */
     public static int getHeight(Context context, @Nullable Window window) {
         if (window != null) {
             View view = window.getDecorView().getRootView();
