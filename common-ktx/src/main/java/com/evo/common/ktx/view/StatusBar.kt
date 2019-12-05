@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.evo.common.view;
+package com.evo.common.ktx.view
 
-import android.content.Context;
-import android.view.View;
-import android.view.Window;
-import androidx.annotation.Nullable;
+import android.content.Context
+import android.view.Window
 
 /**
- * Created by Dylan Roussel on 17/09/2019
+ * Created by Dylan Roussel on 14/10/2019
  */
-public class StatusBar {
+object StatusBar {
 
 
     /**
@@ -36,19 +34,20 @@ public class StatusBar {
      * @param window The window of the current activity
      * @return The height in dp of the status bar
      */
-    public static int getHeight(Context context, @Nullable Window window) {
+    fun getHeight(context: Context, window: Window?): Int {
         if (window != null) {
-            View view = window.getDecorView().getRootView();
-            if (view.getRootWindowInsets() != null) {
-                return view.getRootWindowInsets().getSystemWindowInsetTop();
+            val view = window.decorView.rootView
+            if (view.rootWindowInsets != null) {
+                return view.rootWindowInsets.systemWindowInsetTop
             }
         }
 
-        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resId > 0) {
-            return context.getResources().getDimensionPixelSize(resId);
-        }
-        return 0;
+        NavigationBar.getHeight(context, window);
+
+        val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+        return if (resId > 0) {
+            context.resources.getDimensionPixelSize(resId)
+        } else 0
     }
 
 }

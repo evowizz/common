@@ -14,5 +14,6 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.evo.common" />
+<resources>
+    <string name="app_name">common-ktx</string>
+</resources>
