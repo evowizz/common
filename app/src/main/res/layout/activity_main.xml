@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2019 Dylan Roussel
+  ~ Copyright 2020 Dylan Roussel
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -37,17 +37,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:onClick="showToast"
-          android:tag="kotlin"
-          android:text="Show Kotlin Toast" />
-
-        <Button
-          android:id="@+id/button2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:onClick="showToast"
-          android:tag="java"
-          android:text="Show Java Toast" />
+          android:text="Show Toast" />
 
     </LinearLayout>
 

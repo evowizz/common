@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2019 Dylan Roussel
+  ~ Copyright 2020 Dylan Roussel
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,5 +14,6 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.evo.common.ktx" />
+<resources>
+    <string name="app_name">common-ktx</string>
+</resources>

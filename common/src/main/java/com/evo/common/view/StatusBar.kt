@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Dylan Roussel
+ * Copyright 2020 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.ktx.view
+package com.evo.common.view
 
 import android.content.Context
 import android.view.Window
@@ -26,13 +26,13 @@ object StatusBar {
 
 
     /**
-     * Get the height in dp of the status bar.
+     * Get the height in pixels of the status bar.
      *
      * If window is null, the default size of the status bar will be returned using context.
      *
      * @param context The context to get resources
      * @param window The window of the current activity
-     * @return The height in dp of the status bar
+     * @return The height in pixels of the status bar
      */
     fun getHeight(context: Context, window: Window?): Int {
         if (window != null) {
@@ -42,12 +42,9 @@ object StatusBar {
             }
         }
 
-        NavigationBar.getHeight(context, window);
-
         val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         return if (resId > 0) {
             context.resources.getDimensionPixelSize(resId)
         } else 0
     }
-
 }
