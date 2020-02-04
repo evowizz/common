@@ -20,6 +20,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.evo.common.os.AndroidVersion
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
 import com.evo.common.view.StatusBar
@@ -46,8 +47,12 @@ class MainActivity : AppCompatActivity() {
 
         val nBarMode = getNavigationBarMode(this)
 
+        val aVersion = AndroidVersion.getCodename()
+        val aIsPreview = AndroidVersion.isPreview()
+
         return "StatusBar:\n ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
-                "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode"
+                "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode" + "\n\n" +
+                "AndroidVersion:\n${aVersion} | isPreview = ${aIsPreview}"
     }
 
     fun getNavigationBarMode(context: Context): String {
