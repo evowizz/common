@@ -18,8 +18,7 @@ package com.evo.commonlib
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
@@ -31,13 +30,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val textView: TextView = findViewById(R.id.textview)
+        textView.text = getText()
     }
 
-    fun showToast(view: View) {
-        Toast.makeText(this, getToastText(), Toast.LENGTH_LONG).show()
-    }
-
-    fun getToastText(): String {
+    fun getText(): String {
 
         /* Using Context to retrieve the heights*/
         val sBarSizePx = StatusBar.getHeight(this, null).toFloat()
@@ -49,8 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         val nBarMode = getNavigationBarMode(this)
 
-        return "StatusBar = ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
-                "NavigationBar = ${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode"
+        return "StatusBar:\n ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
+                "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode"
     }
 
     fun getNavigationBarMode(context: Context): String {
