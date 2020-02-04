@@ -62,7 +62,7 @@ object NavigationBar {
     }
 }
 
-enum class NavigationBarMode(val mode: Int) {
+enum class NavigationBarMode(private val mode: Int) {
     MODE_UNKNOWN(-1),
     MODE_3BUTTON(0),
     MODE_2BUTTON(1),
