@@ -47,12 +47,14 @@ class MainActivity : AppCompatActivity() {
 
         val nBarMode = getNavigationBarMode(this)
 
-        val aVersion = AndroidVersion.getCodename()
+        // AndroidVersion class is marked as deprecated until the following issue is fixed:
+        // https://issuetracker.google.com/issues/120255046
+        val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
 
         return "StatusBar:\n ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
                 "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n${aVersion} | isPreview = ${aIsPreview}"
+                "AndroidVersion:\n${aCodename} | isPreview = ${aIsPreview}"
     }
 
     fun getNavigationBarMode(context: Context): String {

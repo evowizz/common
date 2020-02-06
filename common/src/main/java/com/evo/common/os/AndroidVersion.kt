@@ -16,13 +16,13 @@
 
 package com.evo.common.os
 
-import android.annotation.TargetApi
 import android.os.Build
 
 /**
  * Created by Dylan Roussel on 06/12/2019
  */
 
+@Deprecated("Deprecated until the following issue is fixed: https://issuetracker.google.com/issues/120255046")
 object AndroidVersion {
 
     /**
@@ -44,37 +44,30 @@ object AndroidVersion {
         return Build.VERSION.CODENAME
     }
 
-    @TargetApi(29)
     fun isAtLeastQ(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
     }
 
-    @TargetApi(28)
     fun isAtLeastP(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
     }
 
-    @TargetApi(27)
     fun isAtLeastO_MR1(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
     }
 
-    @TargetApi(26)
     fun isAtLeastO(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
     }
 
-    @TargetApi(25)
     fun isAtLeastN_MR1(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1
     }
 
-    @TargetApi(24)
     fun isAtLeastN(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
     }
 
-    @TargetApi(23)
     fun isAtLeastM(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     }
