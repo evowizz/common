@@ -23,18 +23,36 @@ import android.content.Context
  */
 
 /**
- * Converts a given value from dp (or dip) to px
+ * Converts a given Float value from dp (or dip) to px
  *
  * @param context The context to get resources
  * @param value Original value to be converted in dp
- * @return value, but in Pixel
+ * @return Pixel value as a Float
  */
 fun Float.toPx(context: Context): Float = this * context.resources.displayMetrics.density
 
+
 /**
- * Converts a given value from px to dp (or dip)
+ * Converts a given Integer value from dp (or dip) to px
  *
  * @param context The context to get resources
- * @return value, but in dp
+ * @param value Original value to be converted in dp
+ * @return Pixel value as a Float
+ */
+fun Int.toPx(context: Context): Float = this * context.resources.displayMetrics.density
+
+/**
+ * Converts a given Float value from px to dp (or dip)
+ *
+ * @param context The context to get resources
+ * @return dp value as a Float
  */
 fun Float.toDp(context: Context): Float = this / context.resources.displayMetrics.density
+
+/**
+ * Converts a given Integer value from px to dp (or dip)
+ *
+ * @param context The context to get resources
+ * @return dp value as a Float
+ */
+fun Int.toDp(context: Context): Float = this / context.resources.displayMetrics.density
