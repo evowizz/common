@@ -42,8 +42,12 @@ class MainActivity : AppCompatActivity() {
         val nBarSizePx = NavigationBar.getHeight(this, null).toFloat()
 
         /* Using Window to retrieve the heights*/
+        /* Using Float.toDp(...)*/
         val sBarSizeDp = StatusBar.getHeight(this, window).toFloat().toDp(this)
-        val nBarSizeDp = NavigationBar.getHeight(this, window).toFloat().toDp(this)
+
+        /* Using Int.toDp(...)*/
+        val nBarSizeDp = NavigationBar.getHeight(this, window).toDp(this)
+
 
         val nBarMode = getNavigationBarMode(this)
 
