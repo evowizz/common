@@ -22,7 +22,6 @@ import android.os.Build
  * Created by Dylan Roussel on 06/12/2019
  */
 
-@Deprecated("Deprecated until the following issue is fixed: https://issuetracker.google.com/issues/120255046")
 object AndroidVersion {
 
     /**

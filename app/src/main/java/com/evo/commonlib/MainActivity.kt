@@ -48,11 +48,8 @@ class MainActivity : AppCompatActivity() {
         /* Using Int.toDp(...)*/
         val nBarSizeDp = NavigationBar.getHeight(this, window).toDp(this)
 
-
         val nBarMode = getNavigationBarMode(this)
 
-        // AndroidVersion class is marked as deprecated until the following issue is fixed:
-        // https://issuetracker.google.com/issues/120255046
         val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
 
@@ -65,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         val type = when (NavigationBar.getMode(context)) {
             NavigationBarMode.MODE_3BUTTON -> "3-Button"
             NavigationBarMode.MODE_2BUTTON -> "2-Button"
-            NavigationBarMode.MODE_GESTURAL -> "Gestural"
+            NavigationBarMode.MODE_GESTURAL -> "Gesture"
             else -> "Unknown"
         }
 
