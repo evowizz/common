@@ -35,6 +35,7 @@ object NavigationBar {
      * @param window Window of the current activity
      * @return The height in pixels of the navigation bar
      */
+    @Deprecated("Android now makes it easier to retrieve this value")
     fun getHeight(context: Context, window: Window?): Int {
         if (window != null) {
             val view = window.decorView.rootView
