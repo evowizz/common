@@ -43,6 +43,10 @@ object AndroidVersion {
         return Build.VERSION.CODENAME
     }
 
+    fun isAtLeastR(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+    }
+
     fun isAtLeastQ(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
     }
