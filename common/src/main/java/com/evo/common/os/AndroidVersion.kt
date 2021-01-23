@@ -43,6 +43,10 @@ object AndroidVersion {
         return Build.VERSION.CODENAME
     }
 
+    fun isAtLeastS(): Boolean {
+        return Build.VERSION.SDK_INT >= 31
+    }
+
     fun isAtLeastR(): Boolean {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
     }
