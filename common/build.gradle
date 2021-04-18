@@ -40,6 +40,6 @@ android {
 }
 
 dependencies {
-    api 'androidx.annotation:annotation:1.1.0'
+    api 'androidx.annotation:annotation:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
