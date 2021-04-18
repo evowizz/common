@@ -20,6 +20,8 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.evo.common.hashing.Algorithm
+import com.evo.common.hashing.Hashing
 import com.evo.common.os.AndroidVersion
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
@@ -53,9 +55,12 @@ class MainActivity : AppCompatActivity() {
         val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
 
+        val aHash = Hashing.hash("Hello, World!", Algorithm.SHA1)
+
         return "StatusBar:\n ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
                 "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n${aCodename} | isPreview = ${aIsPreview}"
+                "AndroidVersion:\n${aCodename} | isPreview = ${aIsPreview}" + "\n\n" +
+                "Hashing:\n" + "Hello, World! = $aHash"
     }
 
     fun getNavigationBarMode(context: Context): String {
