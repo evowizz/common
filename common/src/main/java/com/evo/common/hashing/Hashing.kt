@@ -21,7 +21,7 @@ import com.evo.common.extensions.toHexString
 import java.security.MessageDigest
 
 object Hashing {
-    private val TAG = "Hashing"
+    private const val TAG = "Hashing"
 
     /**
      * Hash the given source with the given algorithm
@@ -29,9 +29,7 @@ object Hashing {
      * @param source The string to hash
      * @param algorithm The Algorithm to use to hash source
      */
-    fun hash(source: String, algorithm: Algorithm): String {
-        return hash(source.toByteArray(), algorithm)
-    }
+    fun hash(source: String, algorithm: Algorithm): String = hash(source.toByteArray(), algorithm)
 
     /**
      * Hash the given bytes with the given algorithm
@@ -40,15 +38,14 @@ object Hashing {
      * @param algorithm The Algorithm to use to hash bytes
      */
     fun hash(bytes: ByteArray, algorithm: Algorithm): String {
-        val digest = try {
+        val messageDigest = try {
             MessageDigest.getInstance(algorithm.algo)
         } catch (e: Exception) {
             Log.e(TAG, "Could not create digest for algorithm: $algorithm, returning empty string.")
             return ""
         }
 
-        digest.update(bytes)
-        return digest.digest().toHexString()
+        return messageDigest.digest(bytes).toHexString()
     }
 }
 
