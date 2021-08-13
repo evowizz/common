@@ -25,8 +25,8 @@ import com.evo.common.hashing.Hashing
 import com.evo.common.os.AndroidVersion
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
-import com.evo.common.view.StatusBar
 import com.evo.common.view.toDp
+import com.evo.common.view.toPx
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,16 +39,11 @@ class MainActivity : AppCompatActivity() {
 
     fun getText(): String {
 
-        /* Using Context to retrieve the heights*/
-        val sBarSizePx = StatusBar.getHeight(this, null).toFloat()
-        val nBarSizePx = NavigationBar.getHeight(this, null).toFloat()
-
-        /* Using Window to retrieve the heights*/
-        /* Using Float.toDp(...)*/
-        val sBarSizeDp = StatusBar.getHeight(this, window).toFloat().toDp(this)
+        /* Using Float.toPx(...)*/
+        val toPxValue = 4f.toPx(this)
 
         /* Using Int.toDp(...)*/
-        val nBarSizeDp = NavigationBar.getHeight(this, window).toDp(this)
+        val toDpValue = 16.toDp(this)
 
         val nBarMode = getNavigationBarMode(this)
 
@@ -57,9 +52,10 @@ class MainActivity : AppCompatActivity() {
 
         val aHash = Hashing.hash("Hello, World!", Algorithm.SHA1)
 
-        return "StatusBar:\n ${sBarSizePx}px | ${sBarSizeDp}dp" + "\n\n" +
-                "NavigationBar:\n${nBarSizePx}px | ${nBarSizeDp}dp | Mode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n${aCodename} | isPreview = ${aIsPreview}" + "\n\n" +
+        return "4f.toPx = ${toPxValue}px" + "\n" +
+                "16.toDp = ${toDpValue}dp" + "\n\n" +
+                "NavigationBar:\nMode = $nBarMode" + "\n\n" +
+                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview" + "\n\n" +
                 "Hashing:\n" + "Hello, World! = $aHash"
     }
 

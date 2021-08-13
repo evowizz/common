@@ -27,30 +27,6 @@ import android.view.Window
 object NavigationBar {
 
     /**
-     * Get the height in pixels of the navigation bar.
-     *
-     * If window is null, the default size of the navigation bar will be returned using context.
-     *
-     * @param context Context to get resources
-     * @param window Window of the current activity
-     * @return The height in pixels of the navigation bar
-     */
-    @Deprecated("Android now makes it easier to retrieve this value")
-    fun getHeight(context: Context, window: Window?): Int {
-        if (window != null) {
-            val view = window.decorView.rootView
-            if (view.rootWindowInsets != null) {
-                return view.rootWindowInsets.systemWindowInsetBottom
-            }
-        }
-
-        val resId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resId > 0) {
-            context.resources.getDimensionPixelSize(resId)
-        } else 0
-    }
-
-    /**
      * Returns the mode of the navigation bar.
      *
      * @param context Context used to retrieve the [ContentResolver][android.content.ContentResolver]
