@@ -17,6 +17,7 @@
 package com.evo.common.os
 
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
 
 /**
  * Created by Dylan Roussel on 06/12/2019
@@ -29,53 +30,31 @@ object AndroidVersion {
      */
     fun isPreview(codename: Char): Boolean {
         val sysCodename = getCodename()
-        return isPreview() &&
-                sysCodename.length == 1 &&
-                sysCodename[0] >= codename &&
-                sysCodename[0] <= 'Z'
+        return isPreview() && sysCodename.isNotEmpty() && sysCodename[0] >= codename
     }
 
-    fun isPreview(): Boolean {
-        return Build.VERSION.PREVIEW_SDK_INT > 0
-    }
+    fun isPreview(): Boolean = Build.VERSION.PREVIEW_SDK_INT > 0
 
-    fun getCodename(): String {
-        return Build.VERSION.CODENAME
-    }
+    fun getCodename(): String = Build.VERSION.CODENAME
 
-    fun isAtLeastS(): Boolean {
-        return Build.VERSION.SDK_INT >= 31
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+    fun isAtLeastS(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
-    fun isAtLeastR(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
+    fun isAtLeastR(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
-    fun isAtLeastQ(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
+    fun isAtLeastQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
 
-    fun isAtLeastP(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
+    fun isAtLeastP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
 
-    fun isAtLeastO_MR1(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O_MR1)
+    fun isAtLeastO_MR1(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
 
-    fun isAtLeastO(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O)
+    fun isAtLeastO(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 
-    fun isAtLeastN_MR1(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1
-    }
-
-    fun isAtLeastN(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-    }
-
-    fun isAtLeastM(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-    }
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N_MR1)
+    fun isAtLeastN_MR1(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1
 }
