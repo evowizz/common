@@ -17,6 +17,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+
+ext {
+    libraryVersion = 1.5
+    libraryId = "com.github.evowizz"
+}
 
 android {
     compileSdk 31
@@ -38,4 +44,26 @@ android {
 dependencies {
     api 'androidx.annotation:annotation:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                version = libraryVersion
+                groupId = libraryId
+                artifactId = 'common'
+            }
+        }
+
+        // For testing purpose
+        repositories {
+            maven {
+                name = "Local"
+                url = layout.buildDirectory.dir('repo')
+            }
+        }
+    }
 }
