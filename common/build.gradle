@@ -20,7 +20,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 
 ext {
-    libraryVersion = 1.5
+    libraryVersion = "1.5.1"
     libraryId = "com.github.evowizz"
 }
 

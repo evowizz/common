@@ -28,8 +28,8 @@ android {
         minSdk 24
         targetSdk 31
 
-        versionCode 5
-        versionName "1.5"
+        versionCode 6
+        versionName "1.5.1"
     }
     buildTypes {
         release {
