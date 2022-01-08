@@ -14,38 +14,39 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'maven-publish'
-
+plugins {
+    id("com.android.library")
+    kotlin("android")
+}
+/*
 ext {
     libraryVersion = "1.5.1"
     libraryId = "com.github.evowizz"
-}
+}*/
 
 android {
-    compileSdk 31
+    compileSdk = 31
 
     defaultConfig {
-        minSdk 24
-        targetSdk 31
+        minSdk = 24
+        targetSdk = 31
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
 }
 
 dependencies {
-    api 'androidx.annotation:annotation:1.3.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api(AndroidX.annotation)
+    implementation(Kotlin.stdlib.jdk8)
 }
 
+/*
 afterEvaluate {
     publishing {
         publications {
@@ -66,4 +67,4 @@ afterEvaluate {
             }
         }
     }
-}
+}*/

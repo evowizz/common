@@ -14,37 +14,38 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id("com.android.application")
+    kotlin("android")
+}
 
 
 android {
-    compileSdk 31
+    compileSdk = 31
 
     defaultConfig {
-        applicationId "com.evo.commonlib"
+        applicationId = "com.evo.commonlib"
 
-        minSdk 24
-        targetSdk 31
+        minSdk = 24
+        targetSdk = 31
 
-        versionCode 6
-        versionName "1.5.1"
+        versionCode = 6
+        versionName = "1.5.1"
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(path: ':common')
+    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
+    api(project(":common"))
 
-    implementation "androidx.core:core-ktx:1.7.0"
+    implementation(AndroidX.core.ktx)
 
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation(AndroidX.appCompat)
+    implementation(AndroidX.constraintLayout)
 }

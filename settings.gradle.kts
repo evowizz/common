@@ -14,5 +14,11 @@
  * limitations under the License.
  */
 
-include ':app', ':common'
-rootProject.name='CommonLib'
+rootProject.name="CommonLib"
+include(":app")
+include(":common")
+
+plugins {
+    // See https://jmfayard.github.io/refreshVersions
+    id("de.fayard.refreshVersions") version "0.30.1"
+}
