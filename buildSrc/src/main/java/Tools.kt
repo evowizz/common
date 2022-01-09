@@ -1,7 +1,7 @@
-import config.defaultConfig
+import org.gradle.api.Project
 
 /*
- * Copyright 2020 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,12 @@ import config.defaultConfig
  * limitations under the License.
  */
 
-plugins {
-    id("com.android.library")
-    kotlin("android")
+fun Project.envOrNull(name: String) = System.getenv(name)
 
-    publish
-}
+fun Project.env(name: String) = envOrNull(name) ?: error("Could not find env: $name")
 
-android {
-    defaultConfig()
-}
+fun Project.propertyOrEnvOrNull(prop: String, env: String = prop) =
+    (findProperty(prop) ?: envOrNull(env)) as String?
 
-dependencies {
-    api(AndroidX.annotation)
-    implementation(Kotlin.stdlib.jdk8)
-}
+fun Project.propertyOrEnv(prop: String, env: String = prop) =
+    propertyOrEnvOrNull(prop, env) ?: error("Could not find prop: $name and env: $env")

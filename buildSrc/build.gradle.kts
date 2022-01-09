@@ -1,7 +1,5 @@
-import config.defaultConfig
-
 /*
- * Copyright 2020 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +15,17 @@ import config.defaultConfig
  */
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
-
-    publish
+    `kotlin-dsl`
 }
 
-android {
-    defaultConfig()
+repositories {
+    google()
+    mavenCentral()
 }
 
+@Suppress("GradlePluginVersion")
 dependencies {
-    api(AndroidX.annotation)
-    implementation(Kotlin.stdlib.jdk8)
+    compileOnly(gradleKotlinDsl())
+    implementation("com.android.tools.build:gradle:_")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
 }
