@@ -17,7 +17,7 @@
 rootProject.name="CommonLib"
 include(":app")
 include(":common")
-include(":parser")
+include(":mosaic")
 
 plugins {
     // See https://jmfayard.github.io/refreshVersions
