@@ -18,11 +18,17 @@ package com.evo.commonlib
 
 import android.content.Context
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
+import android.text.style.URLSpan
+import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.evo.common.hashing.Algorithm
 import com.evo.common.hashing.Hashing
 import com.evo.common.os.AndroidVersion
+import com.evo.common.mosaic.MosaicBuilder
+import com.evo.common.mosaic.URLSpanProvider
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
 import com.evo.common.view.toDp
@@ -35,7 +41,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val textView: TextView = findViewById(R.id.textview)
         textView.text = getText()
+        setupParser(findViewById(R.id.parser))
     }
+
+
 
     fun getText(): String {
 
@@ -59,6 +68,22 @@ class MainActivity : AppCompatActivity() {
                 "Hashing:\n" + "Hello, World! = $aHash"
     }
 
+    private fun setupParser(textView: TextView) {
+        val demoText = "Parsing:\n" +
+                "**bold**," + "\n" +
+                "__italic__," + "\n" +
+                "__**bold & italic**__," + "\n" +
+                "**[__Link__](https://example.com)**"
+
+        with(textView) {
+            movementMethod = LinkMovementMethod.getInstance()
+            text = MosaicBuilder(getUrlSpanProvider()).build(demoText)
+        }
+
+    }
+
+    fun getUrlSpanProvider() = URLSpanProvider { DemoCustomUrlSpan(it) }
+
     fun getNavigationBarMode(context: Context): String {
         val type = when (NavigationBar.getMode(context)) {
             NavigationBarMode.MODE_3BUTTON -> "3-Button"
@@ -68,5 +93,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         return "$type Navigation"
+    }
+}
+
+private class DemoCustomUrlSpan(url: String) : URLSpan(url) {
+
+    override fun onClick(widget: View) {
+        super.onClick(widget)
+        Log.d("DemoCustomUrlSpan", "URL Clicked: $url")
     }
 }
