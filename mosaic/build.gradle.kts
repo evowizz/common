@@ -1,3 +1,5 @@
+import config.defaultConfig
+
 /*
  * Copyright 2020 Dylan Roussel
  *
@@ -14,12 +16,18 @@
  * limitations under the License.
  */
 
-rootProject.name="CommonLib"
-include(":app")
-include(":common")
-include(":mosaic")
-
 plugins {
-    // See https://jmfayard.github.io/refreshVersions
-    id("de.fayard.refreshVersions") version "0.30.1"
+    id("com.android.library")
+    kotlin("android")
+
+    publish
+}
+
+android {
+    defaultConfig()
+}
+
+dependencies {
+    api(AndroidX.annotation)
+    api(AndroidX.core.ktx)
 }
