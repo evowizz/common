@@ -16,6 +16,7 @@
 
 package com.evo.commonlib
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -26,27 +27,27 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.evo.common.hashing.Algorithm
 import com.evo.common.hashing.Hashing
-import com.evo.common.os.AndroidVersion
 import com.evo.common.mosaic.MosaicBuilder
 import com.evo.common.mosaic.URLSpanProvider
+import com.evo.common.os.AndroidVersion
 import com.evo.common.view.NavigationBar
 import com.evo.common.view.NavigationBarMode
 import com.evo.common.view.toDp
 import com.evo.common.view.toPx
 
+@SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val textView: TextView = findViewById(R.id.textview)
-        textView.text = getText()
-        setupParser(findViewById(R.id.parser))
+
+        setupCoreText(findViewById(R.id.coreText))
+        setupHashingText(findViewById(R.id.hashingText))
+        setupMosaicText(findViewById(R.id.mosaicText))
     }
 
-
-
-    fun getText(): String {
+    private fun setupCoreText(textView: TextView) {
 
         /* Using Float.toPx(...)*/
         val toPxValue = 4f.toPx(this)
@@ -59,16 +60,19 @@ class MainActivity : AppCompatActivity() {
         val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
 
-        val aHash = Hashing.hash("Hello, World!", Algorithm.SHA1)
-
-        return "4f.toPx = ${toPxValue}px" + "\n" +
+        textView.text = "4f.toPx = ${toPxValue}px" + "\n" +
                 "16.toDp = ${toDpValue}dp" + "\n\n" +
                 "NavigationBar:\nMode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview" + "\n\n" +
-                "Hashing:\n" + "Hello, World! = $aHash"
+                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview"
     }
 
-    private fun setupParser(textView: TextView) {
+    private fun setupHashingText(textView: TextView) {
+        val sha1 = Hashing.hash("Hello, World!", Algorithm.SHA1)
+
+        textView.text = "Hashing:\nHello, World! = $sha1"
+    }
+
+    private fun setupMosaicText(textView: TextView) {
         val demoText = "Parsing:\n" +
                 "**bold**," + "\n" +
                 "__italic__," + "\n" +
