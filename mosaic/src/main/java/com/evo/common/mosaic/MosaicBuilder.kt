@@ -27,6 +27,13 @@ import androidx.core.text.italic
 /**
  * Class used to parse and build Mosaic text into [SpannedString]. A custom [urlSpanProvider]
  * can be provided to use an alternative to the default [URLSpan].
+ *
+ * Supported types are:
+ * ```
+ * **bold**
+ * __italic__
+ * [link](https://example.com)
+ * ```
  */
 class MosaicBuilder(
     val urlSpanProvider: URLSpanProvider = DefaultUrlSpanProvider
