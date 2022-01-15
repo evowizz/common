@@ -41,7 +41,7 @@ class MosaicBuilder(
         val parsedMosaic = MosaicParser.parse(input)
 
         return buildSpannedString {
-            parsedMosaic.elements.forEach { buildElement(it, this) }
+            buildChildElements(parsedMosaic.elements, this)
         }
     }
 
