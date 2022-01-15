@@ -42,7 +42,7 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    api(project(":common"))
+    api(project(":core"))
     api(project(":hashing"))
     api(project(":mosaic"))
 

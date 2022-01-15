@@ -16,7 +16,7 @@
 
 rootProject.name="CommonLib"
 include(":app")
-include(":common")
+include(":core")
 include(":hashing")
 include(":mosaic")
 
