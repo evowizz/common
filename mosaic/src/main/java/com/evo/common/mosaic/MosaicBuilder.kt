@@ -24,10 +24,19 @@ import androidx.core.text.buildSpannedString
 import androidx.core.text.inSpans
 import androidx.core.text.italic
 
+/**
+ * Class used to parse and build Mosaic text into [SpannedString]. A custom [urlSpanProvider]
+ * can be provided to use an alternative to the default [URLSpan].
+ */
 class MosaicBuilder(
     val urlSpanProvider: URLSpanProvider = DefaultUrlSpanProvider
 ) {
 
+    /**
+     * Build [input] if it contains Mosaic types.
+     *
+     * @return parsed [input] as a [SpannedString]
+     */
     fun build(input: CharSequence): SpannedString {
         val parsedMosaic = MosaicParser.parse(input)
 
@@ -68,6 +77,9 @@ class MosaicBuilder(
     }
 }
 
+/**
+ * Provider of an instance of URLSpan or a derived class.
+ */
 fun interface URLSpanProvider {
     fun provide(url: String): URLSpan
 }
