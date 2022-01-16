@@ -18,21 +18,6 @@ package config
 
 import com.android.build.gradle.LibraryExtension
 
-object Configuration {
-    const val version = "1.6.0-SNAPSHOT"
-
-    const val url = "https://github.com/evowizz/common"
-    const val issueUrl = "$url/issues"
-    const val gitUrl = "https://github.com/evowizz/common.git"
-
-    const val developerId = "evowizz"
-    const val developerName = "Dylan Roussel"
-    const val developerEmail = "mail@evowizz.dev"
-
-    const val minSdk = 24
-    const val targetSdk = 31
-}
-
 @Suppress("UnstableApiUsage")
 fun LibraryExtension.defaultConfig() {
     // compileSdk Version should use the same version as targetSdk in this project
