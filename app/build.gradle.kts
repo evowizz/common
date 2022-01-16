@@ -1,3 +1,5 @@
+import config.Configuration
+
 /*
  * Copyright 2020 Dylan Roussel
  *
@@ -19,7 +21,6 @@ plugins {
     kotlin("android")
 }
 
-
 android {
     compileSdk = 31
 
@@ -29,8 +30,8 @@ android {
         minSdk = 24
         targetSdk = 31
 
-        versionCode = 6
-        versionName = "1.5.1"
+        versionCode = 1
+        versionName = Configuration.version
     }
     buildTypes {
         getByName("release") {
