@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.extensions
+package dev.evowizz.common.extensions
 
 private val HEX_ARRAY = "0123456789ABCDEF".toCharArray()
 

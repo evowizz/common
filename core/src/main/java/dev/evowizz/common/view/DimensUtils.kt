@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.view
+package dev.evowizz.common.view
 
 import android.content.Context
 

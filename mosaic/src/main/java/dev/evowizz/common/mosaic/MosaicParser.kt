@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.evo.common.mosaic
+package dev.evowizz.common.mosaic
 
-import com.evo.common.mosaic.ranges.fixedRange
+import dev.evowizz.common.mosaic.ranges.fixedRange
 
 internal object MosaicParser {
 

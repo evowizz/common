@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.mosaic.ranges
+package dev.evowizz.common.mosaic.ranges
 
 /**
  * FixedRange is used to simplify IntRange.

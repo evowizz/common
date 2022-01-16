@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.mosaic
+package dev.evowizz.common.mosaic
 
 import android.text.SpannableStringBuilder
 import android.text.SpannedString

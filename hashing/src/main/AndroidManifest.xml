@@ -16,6 +16,6 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.evo.common.hashing">
+  package="dev.evowizz.common.hashing">
 
 </manifest>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.commonlib
+package dev.evowizz.commonlib
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -25,15 +25,16 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.evo.common.hashing.Algorithm
-import com.evo.common.hashing.Hashing
-import com.evo.common.mosaic.MosaicBuilder
-import com.evo.common.mosaic.URLSpanProvider
-import com.evo.common.os.AndroidVersion
-import com.evo.common.view.NavigationBar
-import com.evo.common.view.NavigationBarMode
-import com.evo.common.view.toDp
-import com.evo.common.view.toPx
+import dev.evowizz.common.hashing.Algorithm
+import dev.evowizz.common.hashing.Hashing
+import dev.evowizz.common.mosaic.MosaicBuilder
+import dev.evowizz.common.mosaic.URLSpanProvider
+import dev.evowizz.common.os.AndroidVersion
+import dev.evowizz.common.view.NavigationBar
+import dev.evowizz.common.view.NavigationBarMode
+import dev.evowizz.common.view.toDp
+import dev.evowizz.common.view.toPx
+import dev.evowizz.commonlib.R
 
 @SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {

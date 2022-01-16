@@ -16,7 +16,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.evo.commonlib">
+  package="dev.evowizz.commonlib">
 
     <application
       android:allowBackup="true"

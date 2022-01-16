@@ -25,7 +25,7 @@ android {
     compileSdk = 31
 
     defaultConfig {
-        applicationId = "com.evo.commonlib"
+        applicationId = "dev.evowizz.commonlib"
 
         minSdk = 24
         targetSdk = 31

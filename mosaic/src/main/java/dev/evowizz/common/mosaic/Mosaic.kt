@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.evo.common.mosaic
+package dev.evowizz.common.mosaic
 
 /**
  * Multiple elements form the Mosaic.

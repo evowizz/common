@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.evo.common.hashing
+package dev.evowizz.common.hashing
 
 import android.util.Log
-import com.evo.common.extensions.toHexString
+import dev.evowizz.common.extensions.toHexString
 import java.security.MessageDigest
 
 object Hashing {
