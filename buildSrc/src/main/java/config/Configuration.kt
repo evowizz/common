@@ -18,6 +18,7 @@ package config
 
 object Configuration {
     const val version = "1.6.0-SNAPSHOT"
+    const val description = "Set of small tools for Android"
 
     const val url = "https://github.com/evowizz/common"
     const val issueUrl = "$url/issues"

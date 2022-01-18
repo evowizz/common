@@ -34,6 +34,9 @@ afterEvaluate {
                 from(components["release"])
 
                 pom {
+                    name.set(artifactId.capitalize())
+                    description.set(Configuration.description)
+
                     url.set(Configuration.url)
 
                     licenses {
