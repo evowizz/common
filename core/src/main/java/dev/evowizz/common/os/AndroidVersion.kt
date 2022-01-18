@@ -28,33 +28,56 @@ object AndroidVersion {
     /**
      * Verify if [codename] is the current preview of the device or above.
      */
-    fun isPreview(codename: Char): Boolean {
-        val sysCodename = getCodename()
-        return isPreview() && sysCodename.isNotEmpty() && sysCodename[0] >= codename
+    fun isAtLeastPreview(codename: String): Boolean {
+        val buildCodename = getCodename()
+
+        return isPreview() && buildCodename >= codename
     }
+
+    @Deprecated(
+        "Use \"isAtLeastPreview(String)\" instead",
+        ReplaceWith("isAtLeastPreview(codename.toString())")
+    )
+    fun isPreview(codename: Char): Boolean = isAtLeastPreview(codename.toString())
 
     fun isPreview(): Boolean = Build.VERSION.PREVIEW_SDK_INT > 0
 
     fun getCodename(): String = Build.VERSION.CODENAME
 
+    @ChecksSdkIntAtLeast(api = 33, codename = "Tiramisu")
+    fun isAtLeastT(): Boolean = isAtLeast(33) || isAtLeastPreview("Tiramisu")
+
+    @ChecksSdkIntAtLeast(api = 32, codename = "Sv2")
+    fun isAtLeastS_V2(): Boolean = isAtLeast(32) || isAtLeastPreview("Sv2")
+
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
-    fun isAtLeastS(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    fun isAtLeastS(): Boolean = isAtLeast(Build.VERSION_CODES.S)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
-    fun isAtLeastR(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+    fun isAtLeastR(): Boolean = isAtLeast(Build.VERSION_CODES.R)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
-    fun isAtLeastQ(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+    fun isAtLeastQ(): Boolean = isAtLeast(Build.VERSION_CODES.Q)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
-    fun isAtLeastP(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+    fun isAtLeastP(): Boolean = isAtLeast(Build.VERSION_CODES.P)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O_MR1)
-    fun isAtLeastO_MR1(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
+    fun isAtLeastO_MR1(): Boolean = isAtLeast(Build.VERSION_CODES.O_MR1)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O)
-    fun isAtLeastO(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+    fun isAtLeastO(): Boolean = isAtLeast(Build.VERSION_CODES.O)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N_MR1)
-    fun isAtLeastN_MR1(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1
+    fun isAtLeastN_MR1(): Boolean = isAtLeast(Build.VERSION_CODES.N_MR1)
+
+    @ChecksSdkIntAtLeast(parameter = 0)
+    fun isAtLeast(api: Int): Boolean = Build.VERSION.SDK_INT >= api
+
+    @ChecksSdkIntAtLeast(parameter = 0, lambda = 1)
+    inline fun whenAtLeast(api: Int, action: () -> Unit) {
+        if (isAtLeast(api)) {
+            action()
+        }
+    }
 }
