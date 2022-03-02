@@ -17,23 +17,37 @@
 package dev.evowizz.common.os
 
 import android.annotation.SuppressLint
+import android.util.Log
+import java.lang.reflect.Method
 
 object SystemProperties {
 
+    private const val TAG = "SystemProperties"
+
     private const val systemPropertiesClassName = "android.os.SystemProperties"
     private const val systemPropertiesGetMethodName = "get"
+
+    private var getMethod: Method? = null
 
     /**
      *  Returns the property attached to the given [key] or `null`
      */
     @SuppressLint("PrivateApi")
     fun getOrNull(key: String): String? {
+        if (getMethod == null) {
+            try {
+                val clazz = Class.forName(systemPropertiesClassName)
+                getMethod = clazz.getMethod(systemPropertiesGetMethodName, String::class.java)
+            } catch (e: Exception) {
+                Log.e(TAG, "Unable to locate SystemProperties.get(String) function through reflection", e)
+                return null
+            }
+        }
+
         return try {
-            val clazz = Class.forName(systemPropertiesClassName)
-            val getter = clazz.getMethod(systemPropertiesGetMethodName, String::class.java)
-            (getter.invoke(null, key) as String?).orNull()
+            (getMethod!!.invoke(null, key) as String?).orNull()
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Failed to get property for key \"$key\"")
             null
         }
     }
@@ -41,7 +55,8 @@ object SystemProperties {
     /**
      * Returns the property attached to the given [key] or throw
      */
-    fun getOrThrow(key: String): String = getOrNull(key) ?: error("Could not find property \"$key\"")
+    fun getOrThrow(key: String): String =
+        getOrNull(key) ?: error("Could not find property \"$key\"")
 
     /**
      * Returns the property attached to the given [key] or the result of calling the [defaultValue] function
