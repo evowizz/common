@@ -30,6 +30,7 @@ import dev.evowizz.common.hashing.Hashing
 import dev.evowizz.common.mosaic.MosaicBuilder
 import dev.evowizz.common.mosaic.URLSpanProvider
 import dev.evowizz.common.os.AndroidVersion
+import dev.evowizz.common.os.SystemProperties
 import dev.evowizz.common.view.NavigationBar
 import dev.evowizz.common.view.NavigationBarMode
 import dev.evowizz.common.view.toDp
@@ -61,10 +62,14 @@ class MainActivity : AppCompatActivity() {
         val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
 
+        val sProperty = "ro.build.id"
+        val sPropertyResult = SystemProperties.getOrElse(sProperty, "Unknown")
+
         textView.text = "4f.toPx = ${toPxValue}px" + "\n" +
                 "16.toDp = ${toDpValue}dp" + "\n\n" +
                 "NavigationBar:\nMode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview"
+                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview" + "\n\n" +
+                "SystemProperties:\n$sProperty = $sPropertyResult"
     }
 
     private fun setupHashingText(textView: TextView) {
