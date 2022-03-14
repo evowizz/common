@@ -27,6 +27,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import dev.evowizz.common.hashing.Algorithm
 import dev.evowizz.common.hashing.Hashing
+import dev.evowizz.common.init.ApplicationContext
 import dev.evowizz.common.mosaic.MosaicBuilder
 import dev.evowizz.common.mosaic.URLSpanProvider
 import dev.evowizz.common.os.AndroidVersion
@@ -57,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         /* Using Int.toDp(...)*/
         val toDpValue = 16.toDp(this)
 
-        val nBarMode = getNavigationBarMode(this)
+        val aContext = ApplicationContext.get()
+        val nBarMode = getNavigationBarMode(aContext)
 
         val aCodename = AndroidVersion.getCodename()
         val aIsPreview = AndroidVersion.isPreview()
