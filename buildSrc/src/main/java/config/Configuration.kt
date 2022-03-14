@@ -17,7 +17,7 @@
 package config
 
 object Configuration {
-    const val version = "2.0.0"
+    const val version = "2.1.0"
     const val description = "Set of small tools for Android"
 
     const val url = "https://github.com/evowizz/common"
