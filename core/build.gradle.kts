@@ -29,5 +29,4 @@ android {
 
 dependencies {
     api(AndroidX.annotation)
-    implementation(Kotlin.stdlib.jdk8)
 }
