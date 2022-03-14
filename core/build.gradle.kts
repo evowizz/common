@@ -29,4 +29,5 @@ android {
 
 dependencies {
     api(AndroidX.annotation)
+    api(AndroidX.startup.runtime)
 }
