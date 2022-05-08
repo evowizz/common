@@ -36,7 +36,7 @@ import androidx.core.text.italic
  * ```
  */
 class MosaicBuilder(
-    val urlSpanProvider: URLSpanProvider = DefaultUrlSpanProvider
+    private val urlSpanProvider: URLSpanProvider = DefaultUrlSpanProvider
 ) {
 
     /**
