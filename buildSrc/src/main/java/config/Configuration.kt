@@ -29,5 +29,5 @@ object Configuration {
     const val developerEmail = "mail@evowizz.dev"
 
     const val minSdk = 24
-    const val targetSdk = 31
+    const val targetSdk = 32
 }
