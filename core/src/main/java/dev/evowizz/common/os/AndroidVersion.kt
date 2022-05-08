@@ -20,10 +20,6 @@ import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
 
-/**
- * Created by Dylan Roussel on 06/12/2019
- */
-
 object AndroidVersion {
 
     private const val T_RELEASE_OR_PREVIEW = "ro.build.version.release_or_preview_display"

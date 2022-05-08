@@ -19,10 +19,6 @@ package dev.evowizz.common.view
 import android.content.Context
 import android.provider.Settings
 
-
-/**
- * Created by Dylan Roussel on 14/10/2019
- */
 object NavigationBar {
 
     /**
