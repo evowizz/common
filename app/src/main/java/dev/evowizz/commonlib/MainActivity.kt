@@ -36,7 +36,6 @@ import dev.evowizz.common.view.NavigationBar
 import dev.evowizz.common.view.NavigationBarMode
 import dev.evowizz.common.view.toDp
 import dev.evowizz.common.view.toPx
-import dev.evowizz.commonlib.R
 
 @SuppressLint("SetTextI18n")
 class MainActivity : AppCompatActivity() {
@@ -61,7 +60,10 @@ class MainActivity : AppCompatActivity() {
         val aContext = ApplicationContext.get()
         val nBarMode = getNavigationBarMode(aContext)
 
-        val aCodename = AndroidVersion.getCodename()
+        val aVersion = if (AndroidVersion.isAtLeastR()) {
+            AndroidVersion.getVersionDisplay()
+        } else AndroidVersion.getCodename()
+
         val aIsPreview = AndroidVersion.isPreview()
 
         val sProperty = "ro.build.id"
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         textView.text = "4f.toPx = ${toPxValue}px" + "\n" +
                 "16.toDp = ${toDpValue}dp" + "\n\n" +
                 "NavigationBar:\nMode = $nBarMode" + "\n\n" +
-                "AndroidVersion:\n$aCodename | isPreview = $aIsPreview" + "\n\n" +
+                "AndroidVersion:\n$aVersion | isPreview = $aIsPreview" + "\n\n" +
                 "SystemProperties:\n$sProperty = $sPropertyResult"
     }
 

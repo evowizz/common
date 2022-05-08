@@ -18,12 +18,15 @@ package dev.evowizz.common.os
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.RequiresApi
 
 /**
  * Created by Dylan Roussel on 06/12/2019
  */
 
 object AndroidVersion {
+
+    private const val T_RELEASE_OR_PREVIEW = "ro.build.version.release_or_preview_display"
 
     /**
      * Verify if [codename] is the current preview of the device or above.
@@ -43,6 +46,17 @@ object AndroidVersion {
     fun isPreview(): Boolean = Build.VERSION.PREVIEW_SDK_INT > 0
 
     fun getCodename(): String = Build.VERSION.CODENAME
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    fun getVersionDisplay(): String {
+        // Because Android displays API 32 as `12`, this tweak allows us to manually specify
+        // the real version for the API 32 which is `12L` (or 12.1)
+        return when {
+            isAtLeastT() -> SystemProperties.getOrElse(T_RELEASE_OR_PREVIEW, Build.UNKNOWN)
+            isAtLeastS_V2() -> "12L"
+            else -> Build.VERSION.RELEASE_OR_CODENAME
+        }
+    }
 
     @ChecksSdkIntAtLeast(api = 33, codename = "Tiramisu")
     fun isAtLeastT(): Boolean = isAtLeast(33) || isAtLeastPreview("Tiramisu")
