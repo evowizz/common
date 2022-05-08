@@ -17,18 +17,12 @@
 package dev.evowizz.common.mosaic.ranges
 
 /**
- * FixedRange is used to simplify IntRange.
+ * FixedRange is a simplified alternative to [IntRange].
  *
- * IntRange has start, and endInclusive. However it doesn't have end (non-inclusive).
+ * IntRange contains [IntRange.endInclusive] & [IntRange.last]. Bot of them are inclusive, and
+ * `endInclusive` causes a warning.
  *
- * There's also the "ReplaceRangeStartEndInclusiveWithFirstLast" inspection which asks
- * you to switch to first and last instead of start and endInclusive.
- *
- * However, switching to first would also imply switching to last, but last is also inclusive
- * so you cannot create an extension named last yourself while you could create an "end" extension.
- *
- * This class is made to fix all of those issues in this module only, it cannot be shipped outside
- * of this module as it doesn't cover all possible ranges.
+ * The purpose of this class is to fix these little annoyance, and it should remain internal.
  */
 internal data class FixedRange(val start: Int, val end: Int, val step: Int)
 
