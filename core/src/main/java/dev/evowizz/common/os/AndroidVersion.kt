@@ -90,8 +90,6 @@ object AndroidVersion {
 
     @ChecksSdkIntAtLeast(parameter = 0, lambda = 1)
     inline fun whenAtLeast(api: Int, action: () -> Unit) {
-        if (isAtLeast(api)) {
-            action()
-        }
+        if (isAtLeast(api)) action()
     }
 }
