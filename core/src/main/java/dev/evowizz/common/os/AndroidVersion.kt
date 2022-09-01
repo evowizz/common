@@ -22,8 +22,6 @@ import androidx.annotation.RequiresApi
 
 object AndroidVersion {
 
-    private const val T_RELEASE_OR_PREVIEW = "ro.build.version.release_or_preview_display"
-
     /**
      * Verify if [codename] is the current preview of the device or above.
      */
@@ -48,17 +46,18 @@ object AndroidVersion {
         // Because Android displays API 32 as `12`, this tweak allows us to manually specify
         // the real version for the API 32 which is `12L` (or 12.1)
         return when {
-            isAtLeastT() -> SystemProperties.getOrElse(T_RELEASE_OR_PREVIEW, Build.UNKNOWN)
+            isAtLeastT() -> Build.VERSION.RELEASE_OR_PREVIEW_DISPLAY
             isAtLeastS_V2() -> "12L"
             else -> Build.VERSION.RELEASE_OR_CODENAME
         }
     }
 
-    @ChecksSdkIntAtLeast(api = 33, codename = "Tiramisu")
-    fun isAtLeastT(): Boolean = isAtLeast(33) || isAtLeastPreview("Tiramisu")
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU, codename = "Tiramisu")
+    fun isAtLeastT(): Boolean = isAtLeast(Build.VERSION_CODES.TIRAMISU) ||
+            isAtLeastPreview("Tiramisu")
 
-    @ChecksSdkIntAtLeast(api = 32, codename = "Sv2")
-    fun isAtLeastS_V2(): Boolean = isAtLeast(32) || isAtLeastPreview("Sv2")
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
+    fun isAtLeastS_V2(): Boolean = isAtLeast(Build.VERSION_CODES.S_V2)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
     fun isAtLeastS(): Boolean = isAtLeast(Build.VERSION_CODES.S)
