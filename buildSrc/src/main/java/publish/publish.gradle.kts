@@ -37,7 +37,7 @@ afterEvaluate {
                     name.set(artifactId.capitalize())
                     description.set(Configuration.description)
 
-                    url.set(Configuration.url)
+                    url.set(Configuration.githubUrl)
 
                     licenses {
                         license {
@@ -57,7 +57,7 @@ afterEvaluate {
                     scm {
                         connection.set(Configuration.gitUrl)
                         developerConnection.set(Configuration.gitUrl)
-                        url.set(Configuration.url)
+                        url.set(Configuration.githubUrl)
                     }
 
                     issueManagement {

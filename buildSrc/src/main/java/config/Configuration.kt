@@ -20,9 +20,9 @@ object Configuration {
     const val version = "2.2.0"
     const val description = "Set of small tools for Android"
 
-    const val url = "https://github.com/evowizz/common"
-    const val issueUrl = "$url/issues"
-    const val gitUrl = "https://github.com/evowizz/common.git"
+    const val githubUrl = "https://github.com/evowizz/common"
+    const val issueUrl = "$githubUrl/issues"
+    const val gitUrl = "$githubUrl.git"
 
     const val developerId = "evowizz"
     const val developerName = "Dylan Roussel"
