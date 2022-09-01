@@ -22,13 +22,13 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "dev.evowizz.commonlib"
 
         minSdk = 24
-        targetSdk = 32
+        targetSdk = 33
 
         versionCode = 1
         versionName = Configuration.version
