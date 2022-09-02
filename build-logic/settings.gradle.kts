@@ -14,33 +14,19 @@
  * limitations under the License.
  */
 
-package config
-
-import com.android.build.gradle.LibraryExtension
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 @Suppress("UnstableApiUsage")
-fun LibraryExtension.defaultConfig() {
-    // compileSdk Version should use the same version as targetSdk in this project
-    compileSdk = Configuration.targetSdk
-
-    defaultConfig {
-        minSdk = Configuration.minSdk
-        targetSdk = Configuration.targetSdk
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
     }
-
-    buildFeatures {
-        buildConfig = false
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+    versionCatalogs {
+        create("libs") {
+            from(files("../gradle/libs.versions.toml"))
         }
     }
 }
 
-
+include(":convention")

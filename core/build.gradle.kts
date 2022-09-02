@@ -1,7 +1,6 @@
-import config.defaultConfig
 
 /*
- * Copyright 2020 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +16,12 @@ import config.defaultConfig
  */
 
 plugins {
-    id("com.android.library")
+    id("common.android.library")
+    id("common.android.library.publishing")
     kotlin("android")
-
-    publish
-}
-
-android {
-    defaultConfig()
 }
 
 dependencies {
-    api(AndroidX.annotation)
-    api(AndroidX.startup.runtime)
+    api(libs.androidx.annotation)
+    api(libs.androidx.startup)
 }

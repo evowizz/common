@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package publish
+package dev.evowizz.common.utils
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler

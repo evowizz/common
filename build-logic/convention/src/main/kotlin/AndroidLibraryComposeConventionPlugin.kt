@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-pluginManagement {
-    plugins {
-        id("de.fayard.refreshVersions") version "0.40.2"
-    }
-}
+import com.android.build.gradle.LibraryExtension
+import dev.evowizz.common.configureAndroidCompose
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
 
-plugins {
-    id("de.fayard.refreshVersions")
+class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            pluginManager.apply("com.android.library")
+            val extension = extensions.getByType<LibraryExtension>()
+            configureAndroidCompose(extension)
+        }
+    }
 }

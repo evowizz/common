@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-plugins {
-    `kotlin-dsl`
-}
+package dev.evowizz.common
 
-repositories {
-    google()
-    mavenCentral()
-}
+import com.android.build.api.dsl.CommonExtension
+import dev.evowizz.common.utils.libs
+import org.gradle.api.Project
 
-@Suppress("GradlePluginVersion")
-dependencies {
-    compileOnly(gradleKotlinDsl())
-    implementation("com.android.tools.build:gradle:_")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
+internal fun Project.configureAndroidCompose(
+    commonExtension: CommonExtension<*, *, *, *>,
+) {
+    commonExtension.apply {
+        buildFeatures {
+            compose = true
+        }
+
+        composeOptions {
+            kotlinCompilerExtensionVersion =
+                libs.findVersion("androidxComposeCompiler").get().toString()
+        }
+    }
 }

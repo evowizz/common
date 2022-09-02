@@ -1,0 +1,20 @@
+[versions]
+agp = "7.2.2"
+kotlin = "1.7.10"
+
+androidxAnnotation = "1.4.0"
+androidxAppCompat = "1.5.0"
+androidxCore = "1.8.0"
+androidxConstraintLayout = "2.1.4"
+androidxStartup = "1.1.1"
+
+[libraries]
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppCompat" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidxAnnotation" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintLayout" }
+androidx-startup = { module = "androidx.startup:startup-runtime", version.ref = "androidxStartup"}

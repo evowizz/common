@@ -1,7 +1,5 @@
-import config.Configuration
-
 /*
- * Copyright 2020 Dylan Roussel
+ * Copyright 2022 Dylan Roussel
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +29,7 @@ android {
         targetSdk = 33
 
         versionCode = 1
-        versionName = Configuration.version
+        versionName = "2.2.0"
     }
     buildTypes {
         getByName("release") {
@@ -43,12 +41,12 @@ android {
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    api(project(":core"))
-    api(project(":hashing"))
-    api(project(":mosaic"))
+    api(projects.core)
+    api(projects.hashing)
+    api(projects.mosaic)
 
-    implementation(AndroidX.core.ktx)
+    implementation(libs.androidx.core)
 
-    implementation(AndroidX.appCompat)
-    implementation(AndroidX.constraintLayout)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
 }

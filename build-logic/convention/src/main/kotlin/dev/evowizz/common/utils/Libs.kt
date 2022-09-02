@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package config
+package dev.evowizz.common.utils
 
-object Configuration {
-    const val version = "2.2.0"
-    const val description = "Set of small tools for Android"
+import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.getByType
 
-    const val githubUrl = "https://github.com/evowizz/common"
-    const val issueUrl = "$githubUrl/issues"
-    const val gitUrl = "$githubUrl.git"
-
-    const val developerId = "evowizz"
-    const val developerName = "Dylan Roussel"
-    const val developerEmail = "mail@evowizz.dev"
-
-    const val minSdk = 24
-    const val targetSdk = 33
-}
+internal val Project.libs: VersionCatalog
+    get() = extensions.getByType<VersionCatalogsExtension>().named("libs")

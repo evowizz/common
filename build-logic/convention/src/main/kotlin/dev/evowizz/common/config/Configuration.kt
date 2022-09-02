@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2022 Dylan Roussel
  *
@@ -15,10 +14,20 @@
  * limitations under the License.
  */
 
-plugins {
-    id("common.android.library")
-    id("common.android.library.publishing")
-    kotlin("android")
-}
+package dev.evowizz.common.config
 
-dependencies { }
+object Configuration {
+    const val version = "2.2.0"
+    const val description = "Set of small tools for Android"
+
+    const val githubUrl = "https://github.com/evowizz/common"
+    const val issueUrl = "$githubUrl/issues"
+    const val gitUrl = "$githubUrl.git"
+
+    const val developerId = "evowizz"
+    const val developerName = "Dylan Roussel"
+    const val developerEmail = "mail@evowizz.dev"
+
+    const val minSdk = 24
+    const val targetSdk = 33
+}
