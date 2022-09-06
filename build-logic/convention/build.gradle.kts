@@ -38,6 +38,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = "common.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
         register("androidLibraryCompose") {
             id = "common.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"

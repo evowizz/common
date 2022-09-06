@@ -15,26 +15,20 @@
  */
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id("common.android.application")
 }
 
 android {
-    compileSdk = 33
 
-    defaultConfig {
-        applicationId = "dev.evowizz.commonlib"
+    defaultConfig.applicationId = "dev.evowizz.commonlib"
 
-        minSdk = 24
-        targetSdk = 33
-
-        versionCode = 1
-        versionName = "2.2.0"
-    }
     buildTypes {
-        getByName("release") {
+        val release by getting {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }
