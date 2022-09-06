@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package dev.evowizz.common
+package dev.evowizz.common.demos.mosaic
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import dev.evowizz.common.ui.CommonApp
+import dev.evowizz.common.demos.DemoListScope
 
-class MainActivity : AppCompatActivity() {
+fun DemoListScope.MosaicDemo() {
+    module("Mosaic")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        setContent { CommonApp() }
-    }
+    note("Mosaic is not compatible with Jetpack Compose.")
 }

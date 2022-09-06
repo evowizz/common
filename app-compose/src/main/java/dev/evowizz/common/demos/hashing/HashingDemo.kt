@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package dev.evowizz.common
+package dev.evowizz.common.demos.hashing
 
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import dev.evowizz.common.ui.CommonApp
+import dev.evowizz.common.demos.DemoListScope
+import dev.evowizz.common.hashing.Algorithm
+import dev.evowizz.common.hashing.Hashing
 
-class MainActivity : AppCompatActivity() {
+fun DemoListScope.HashingDemo() {
+    module("Hashing")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        setContent { CommonApp() }
-    }
+    demo(
+        title = "Hashing.hash(string, SHA1)",
+        value = Hashing.hash(OriginalString, Algorithm.SHA1)
+    )
+    demo(
+        title = "Hashing.hash(byteArray, MD5)",
+        value = Hashing.hash(OriginalString.toByteArray(), Algorithm.MD5)
+    )
 }
+
+private const val OriginalString = "Hello World!"
