@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Platform.Theme.Common" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <style name="Theme.Common" parent="Platform.Theme.Common">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+    </style>
+</resources>

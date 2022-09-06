@@ -1,0 +1,62 @@
+/*
+ * Copyright 2022 Dylan Roussel
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id("common.android.application")
+}
+
+android {
+
+    defaultConfig.applicationId = "dev.evowizz.common"
+
+    buildTypes {
+        val release by getting {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
+
+dependencies {
+    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
+    api(projects.core)
+    api(projects.hashing)
+    api(projects.mosaic)
+
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.androidx.activity.compose)
+
+    // TODO : Remove these dependency once we upgrade to Android Studio Dolphin b/228889042
+    // These dependencies are currently necessary to render Compose previews
+    debugImplementation(libs.androidx.customview.poolingcontainer)
+    debugImplementation(libs.androidx.lifecycle.viewModelCompose)
+    debugImplementation(libs.androidx.savedstate.ktx)
+
+    api(libs.androidx.compose.foundation)
+    api(libs.androidx.compose.foundation.layout)
+    api(libs.androidx.compose.material.iconsExtended)
+    api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.compose.runtime)
+    api(libs.androidx.compose.runtime.livedata)
+}
