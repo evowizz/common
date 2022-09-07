@@ -16,7 +16,7 @@
 
 package dev.evowizz.common.demos.hashing
 
-import dev.evowizz.common.demos.DemoListScope
+import dev.evowizz.common.ui.components.DemoListScope
 import dev.evowizz.common.hashing.Algorithm
 import dev.evowizz.common.hashing.Hashing
 

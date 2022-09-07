@@ -37,7 +37,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.evowizz.common.R
-import dev.evowizz.common.demos.DemoList
+import dev.evowizz.common.ui.components.DemoList
 import dev.evowizz.common.demos.core.CoreDemo
 import dev.evowizz.common.demos.hashing.HashingDemo
 import dev.evowizz.common.demos.mosaic.MosaicDemo

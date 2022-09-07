@@ -17,7 +17,7 @@
 package dev.evowizz.common.demos.core
 
 import android.os.Build
-import dev.evowizz.common.demos.DemoListScope
+import dev.evowizz.common.ui.components.DemoListScope
 import dev.evowizz.common.init.ApplicationContext
 import dev.evowizz.common.os.AndroidVersion
 import dev.evowizz.common.os.SystemProperties

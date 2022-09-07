@@ -16,7 +16,7 @@
 
 package dev.evowizz.common.demos.mosaic
 
-import dev.evowizz.common.demos.DemoListScope
+import dev.evowizz.common.ui.components.DemoListScope
 
 fun DemoListScope.MosaicDemo() {
     module("Mosaic")

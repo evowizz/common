@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.evowizz.common.demos
+package dev.evowizz.common.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -24,9 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
-import dev.evowizz.common.ui.components.CardMessage
-import dev.evowizz.common.ui.components.Category
-import dev.evowizz.common.ui.components.SimpleListItem
 
 @Composable
 fun DemoList(
