@@ -21,5 +21,5 @@ import dev.evowizz.common.demos.DemoListScope
 fun DemoListScope.MosaicDemo() {
     module("Mosaic")
 
-    note("Mosaic is not compatible with Jetpack Compose.")
+    note(isError = true, "Mosaic is not compatible with Jetpack Compose.")
 }

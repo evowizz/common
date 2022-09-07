@@ -16,19 +16,17 @@
 
 package dev.evowizz.common.demos
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import dev.evowizz.common.ui.components.CardMessage
+import dev.evowizz.common.ui.components.Category
+import dev.evowizz.common.ui.components.SimpleListItem
 
 @Composable
 fun DemoList(
@@ -52,58 +50,38 @@ interface DemoListScope {
 
     fun demo(title: String, value: AnnotatedString)
 
-    fun note(note: String)
+    fun note(isError: Boolean, note: String)
 }
 
 private class DemoListScopeImpl(val lazyListScope: LazyListScope) : DemoListScope {
 
     override fun module(title: String) = lazyListScope.item(key = title) {
-        Text(
+        Category(
             modifier = Modifier
-                .padding(
-                    start = HorizontalPadding,
-                    end = HorizontalPadding,
-                    top = 16.dp,
-                    bottom = 8.dp
-                ),
-            text = title,
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
-            color = MaterialTheme.colorScheme.secondary
+                .padding(horizontal = HorizontalPadding)
+                .padding(top = 16.dp, bottom = 8.dp),
+            text = title
         )
     }
 
     override fun demo(title: String, value: String) = demo(title, AnnotatedString(value))
 
     override fun demo(title: String, value: AnnotatedString) = lazyListScope.item(key = title) {
-        Column(
-            modifier = Modifier.padding(
-                horizontal = HorizontalPadding,
-                vertical = 16.dp
-            )
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+        SimpleListItem(
+            modifier = Modifier.padding(horizontal = HorizontalPadding, vertical = 16.dp),
+            title = title,
+            secondLine = value
+        )
     }
 
-    override fun note(note: String) = lazyListScope.item(key = note.hashCode().toString()) {
-        Card(
-            modifier = Modifier
-                .padding(
-                    horizontal = HorizontalPadding,
-                )
-        ) {
-            Text(text = note, modifier = Modifier.padding(16.dp))
+    override fun note(isError: Boolean, note: String) =
+        lazyListScope.item(key = note.hashCode().toString()) {
+            CardMessage(
+                modifier = Modifier.padding(horizontal = HorizontalPadding),
+                message = note,
+                isError = isError
+            )
         }
-    }
 }
 
 private val HorizontalPadding = 24.dp
