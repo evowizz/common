@@ -56,8 +56,9 @@ fun DemoListScope.CoreDemo() {
     )
     demo(
         title = "SystemProperties.getOrNull(...)",
-        value = SystemProperties.getOrNull(systemProperty) ?: "foo"
+        value = SystemProperties.getOrNull(faultySystemProperty) ?: "foo"
     )
 }
 
 private const val systemProperty = "ro.build.id"
+private const val faultySystemProperty = "ro.prop.inexistent"
