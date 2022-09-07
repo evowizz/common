@@ -59,7 +59,7 @@ private class DemoListScopeImpl(val lazyListScope: LazyListScope) : DemoListScop
         Category(
             modifier = Modifier
                 .padding(horizontal = HorizontalPadding)
-                .padding(top = 16.dp, bottom = 8.dp),
+                .padding(top = VerticalPadding, bottom = VerticalPadding / 2),
             text = title
         )
     }
@@ -68,7 +68,7 @@ private class DemoListScopeImpl(val lazyListScope: LazyListScope) : DemoListScop
 
     override fun demo(title: String, value: AnnotatedString) = lazyListScope.item(key = title) {
         SimpleListItem(
-            modifier = Modifier.padding(horizontal = HorizontalPadding, vertical = 16.dp),
+            modifier = Modifier.padding(horizontal = HorizontalPadding, vertical = VerticalPadding),
             title = title,
             secondLine = value
         )
@@ -77,7 +77,7 @@ private class DemoListScopeImpl(val lazyListScope: LazyListScope) : DemoListScop
     override fun note(isError: Boolean, note: String) =
         lazyListScope.item(key = note.hashCode().toString()) {
             CardMessage(
-                modifier = Modifier.padding(horizontal = HorizontalPadding),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 message = note,
                 isError = isError
             )
@@ -85,3 +85,4 @@ private class DemoListScopeImpl(val lazyListScope: LazyListScope) : DemoListScop
 }
 
 private val HorizontalPadding = 24.dp
+private val VerticalPadding = 16.dp
