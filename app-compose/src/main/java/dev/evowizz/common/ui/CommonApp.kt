@@ -16,28 +16,33 @@
 
 package dev.evowizz.common.ui
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.add
-import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import dev.evowizz.common.R
 import dev.evowizz.common.demos.DemoList
 import dev.evowizz.common.demos.core.CoreDemo
 import dev.evowizz.common.demos.hashing.HashingDemo
 import dev.evowizz.common.demos.mosaic.MosaicDemo
 import dev.evowizz.common.ui.theme.CommonTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommonApp() {
     CommonTheme {
@@ -45,26 +50,54 @@ fun CommonApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            val contentPadding = WindowInsets
-                .navigationBars
-                .add(WindowInsets(bottom = 16.dp))
-                .asPaddingValues()
+            CommonContent()
+        }
+    }
+}
 
-            Column(modifier = Modifier.fillMaxSize()) {
-                SmallTopAppBar(
-                    title = { Text(text = "Common tools") },
-                )
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun CommonContent() {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-                DemoList(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = contentPadding
-                ) {
-                    CoreDemo()
-                    HashingDemo()
-                    MosaicDemo()
-                }
-            }
+    val spacerInset = WindowInsets
+        .navigationBars
+        .add(WindowInsets(bottom = 16.dp))
 
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(text = stringResource(id = R.string.app_name)) },
+                scrollBehavior = scrollBehavior
+            )
+        },
+        bottomBar = {
+            /**
+             * We want innerPadding to have additional height for the bottom WindowInsets.
+             * In other words, we want the navigation bars Window Insets + 16.dp at the bottom.
+             * But because the Scaffold does not support adding additional content padding,
+             * we use the bottomBar parameter to bypass this limitation.
+             *
+             * Internally, because the height of the bottomBar is not 0, instead of using the
+             * bottom WindowInsets, the Scaffold will use the height of the bottom bar.
+             * So we still need to provide the `navigationBars` WindowInsets ourselves.
+             */
+            Spacer(modifier = Modifier.windowInsetsBottomHeight(spacerInset))
+        }
+    ) { innerPadding ->
+
+        DemoList(
+            modifier = Modifier
+                .fillMaxSize()
+                .consumedWindowInsets(innerPadding),
+            contentPadding = innerPadding
+        ) {
+            CoreDemo()
+            HashingDemo()
+            MosaicDemo()
         }
     }
 }
