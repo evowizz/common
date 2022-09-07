@@ -16,6 +16,7 @@
 
 plugins {
     id("common.android.application")
+    id("common.android.application.compose")
 }
 
 android {
@@ -31,18 +32,9 @@ android {
             )
         }
     }
-
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
-    }
 }
 
 dependencies {
-    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
     api(projects.core)
     api(projects.hashing)
     api(projects.mosaic)
