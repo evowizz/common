@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name="CommonLib"
-include(":app-compose")
+include(":app")
 include(":core")
 include(":hashing")
 include(":mosaic")
