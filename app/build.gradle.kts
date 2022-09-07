@@ -16,11 +16,12 @@
 
 plugins {
     id("common.android.application")
+    id("common.android.application.compose")
 }
 
 android {
 
-    defaultConfig.applicationId = "dev.evowizz.commonlib"
+    defaultConfig.applicationId = "dev.evowizz.common"
 
     buildTypes {
         val release by getting {
@@ -34,13 +35,29 @@ android {
 }
 
 dependencies {
-    implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    api(projects.core)
-    api(projects.hashing)
-    api(projects.mosaic)
+    implementation(projects.core)
+    implementation(projects.hashing)
+    implementation(projects.mosaic)
 
     implementation(libs.androidx.core)
-
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
+
+    implementation(libs.androidx.activity.compose)
+
+    // TODO : Remove these dependency once we upgrade to Android Studio Dolphin b/228889042
+    // These dependencies are currently necessary to render Compose previews
+    debugImplementation(libs.androidx.customview.poolingcontainer)
+    debugImplementation(libs.androidx.lifecycle.viewModelCompose)
+    debugImplementation(libs.androidx.savedstate.ktx)
+
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material3)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.util)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.runtime.livedata)
 }
