@@ -35,7 +35,7 @@ fun Category(
     modifier = modifier,
     text = text,
     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
-    color = MaterialTheme.colorScheme.secondary
+    color = MaterialTheme.colorScheme.primary
 )
 
 @Preview(showBackground = true)
