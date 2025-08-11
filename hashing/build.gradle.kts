@@ -21,4 +21,8 @@ plugins {
     kotlin("android")
 }
 
+android {
+    namespace = "dev.evowizz.common.hashing"
+}
+
 dependencies { }

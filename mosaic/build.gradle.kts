@@ -20,6 +20,10 @@ plugins {
     kotlin("android")
 }
 
+android {
+    namespace = "dev.evowizz.common.mosaic"
+}
+
 dependencies {
     api(libs.androidx.annotation)
     api(libs.androidx.core)

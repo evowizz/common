@@ -17,20 +17,14 @@
 package dev.evowizz.common
 
 import com.android.build.api.dsl.CommonExtension
-import dev.evowizz.common.utils.libs
 import org.gradle.api.Project
 
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
         buildFeatures {
             compose = true
-        }
-
-        composeOptions {
-            kotlinCompilerExtensionVersion =
-                libs.findVersion("androidxComposeCompiler").get().toString()
         }
     }
 }

@@ -15,7 +15,5 @@
   ~ limitations under the License.
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="dev.evowizz.common.hashing">
-
+<manifest>
 </manifest>

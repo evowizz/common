@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-
+    namespace = "dev.evowizz.common"
     defaultConfig.applicationId = "dev.evowizz.common"
 
     buildTypes {
