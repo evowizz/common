@@ -16,36 +16,59 @@
 
 package dev.evowizz.common.demos.mosaic
 
+import androidx.compose.runtime.Composable
+import dev.evowizz.common.R
 import dev.evowizz.common.mosaic.MosaicBuilder
-import dev.evowizz.common.ui.components.DemoListScope
+import dev.evowizz.common.mosaic.mosaicPluralStringResource
+import dev.evowizz.common.mosaic.mosaicStringResource
+import dev.evowizz.common.ui.components.Category
+import dev.evowizz.common.ui.components.SimpleListItem
 
-fun DemoListScope.MosaicDemo() {
-    module("Mosaic")
+@Composable
+fun MosaicDemo() {
+    Category("Mosaic")
 
     val builder = MosaicBuilder()
 
     val mosaicText = "**bold**," + "\n" +
-            "__italic__," + "\n" +
-            "__**bold & italic**__," + "\n" +
-            "**[__Link__](https://example.com)**"
+        "__italic__," + "\n" +
+        "__**bold & italic**__," + "\n" +
+        "**[__Link__](https://example.com)**"
 
-    demo(
+    SimpleListItem(
         title = "MosaicBuilder().build(...)",
         value = builder.build(mosaicText)
     )
 
-    demo(
+    SimpleListItem(
         title = "Simple bold text",
         value = builder.build("This is **bold** text!")
     )
 
-    demo(
-        title = "Simple italic text", 
+    SimpleListItem(
+        title = "Simple italic text",
         value = builder.build("This is __italic__ text!")
+
     )
 
-    demo(
+    SimpleListItem(
         title = "Link annotation",
         value = builder.build("Visit [Google](https://google.com) for search!")
+
+    )
+
+    SimpleListItem(
+        title = "mosaicStringResource(...)",
+        value = mosaicStringResource(R.string.mosaic_demo_bold_link)
+    )
+
+    SimpleListItem(
+        title = "mosaicPluralStringResource(..., count = 1)",
+        value = mosaicPluralStringResource(R.plurals.mosaic_demo_files, 1, 1)
+    )
+
+    SimpleListItem(
+        title = "mosaicPluralStringResource(..., count = 42)",
+        value = mosaicPluralStringResource(R.plurals.mosaic_demo_files, 42, 42)
     )
 }

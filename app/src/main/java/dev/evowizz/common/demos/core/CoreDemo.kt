@@ -17,44 +17,47 @@
 package dev.evowizz.common.demos.core
 
 import android.os.Build
-import dev.evowizz.common.ui.components.DemoListScope
+import androidx.compose.runtime.Composable
 import dev.evowizz.common.init.ApplicationContext
 import dev.evowizz.common.os.AndroidVersion
 import dev.evowizz.common.os.SystemProperties
+import dev.evowizz.common.ui.components.Category
+import dev.evowizz.common.ui.components.SimpleListItem
 import dev.evowizz.common.view.NavigationBar
 
-fun DemoListScope.CoreDemo() {
-    module("Core")
+@Composable
+fun CoreDemo() {
+    Category("Core")
 
     // Avoid using ApplicationContext.get() in a Composable
     // This only serves as a demo
     val appContext = ApplicationContext.get()
 
-    demo(
+    SimpleListItem(
         title = "NavigationBar.getMode(...)",
         value = NavigationBar.getMode(appContext).name
     )
 
     AndroidVersion.whenAtLeast(Build.VERSION_CODES.R) {
-        demo(
+        SimpleListItem(
             title = "AndroidVersion.getVersionDisplay()",
             value = AndroidVersion.getVersionDisplay()
         )
     }
-    demo(
+    SimpleListItem(
         title = "AndroidVersion.getCodename()",
         value = AndroidVersion.getCodename()
     )
-    demo(
+    SimpleListItem(
         title = "AndroidVersion.isPreview()",
         value = AndroidVersion.isPreview().toString()
     )
 
-    demo(
+    SimpleListItem(
         title = "SystemProperties.getOrElse(...)",
         value = SystemProperties.getOrElse(systemProperty, Build.UNKNOWN)
     )
-    demo(
+    SimpleListItem(
         title = "SystemProperties.getOrNull(...)",
         value = SystemProperties.getOrNull(faultySystemProperty) ?: "foo"
     )

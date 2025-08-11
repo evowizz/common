@@ -16,18 +16,21 @@
 
 package dev.evowizz.common.demos.hashing
 
-import dev.evowizz.common.ui.components.DemoListScope
+import androidx.compose.runtime.Composable
 import dev.evowizz.common.hashing.Algorithm
 import dev.evowizz.common.hashing.Hashing
+import dev.evowizz.common.ui.components.Category
+import dev.evowizz.common.ui.components.SimpleListItem
 
-fun DemoListScope.HashingDemo() {
-    module("Hashing")
+@Composable
+fun HashingDemo() {
+    Category("Hashing")
 
-    demo(
+    SimpleListItem(
         title = "Hashing.hash(string, SHA1)",
         value = Hashing.hash(OriginalString, Algorithm.SHA1)
     )
-    demo(
+    SimpleListItem(
         title = "Hashing.hash(byteArray, MD5)",
         value = Hashing.hash(OriginalString.toByteArray(), Algorithm.MD5)
     )

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Common</string>
+
+    <string name="mosaic_demo_bold_link">Demo with bold [**link**](https://example.com)</string>
+    <plurals name="mosaic_demo_files">
+        <item quantity="one">You have __%d__ file</item>
+        <item quantity="other">You have **%d** files</item>
+    </plurals>
 </resources>

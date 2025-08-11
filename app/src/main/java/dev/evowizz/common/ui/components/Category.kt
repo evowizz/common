@@ -26,17 +26,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.evowizz.common.ui.theme.CommonTheme
+import dev.evowizz.common.ui.theme.Dimensions
 
 @Composable
 fun Category(
-    modifier: Modifier = Modifier,
-    text: String
-) = Text(
-    modifier = modifier,
-    text = text,
-    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
-    color = MaterialTheme.colorScheme.primary
-)
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        modifier = modifier
+            .padding(
+                horizontal = Dimensions.HorizontalPadding,
+                vertical = Dimensions.VerticalPadding
+            ),
+        text = text,
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
+        color = MaterialTheme.colorScheme.primary
+    )
+}
 
 @Preview(showBackground = true)
 @Composable

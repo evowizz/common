@@ -27,45 +27,74 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.evowizz.common.ui.theme.CommonTheme
+import dev.evowizz.common.ui.theme.Dimensions
 
 @Composable
 fun SimpleListItem(
     modifier: Modifier = Modifier,
     title: String,
-    secondLine: String
-) = SimpleListItem(
-    modifier = modifier,
-    title = title,
-    secondLine = AnnotatedString(secondLine)
-)
-
-@Composable
-fun SimpleListItem(
-    modifier: Modifier = Modifier,
-    title: String,
-    secondLine: AnnotatedString
-) = Column(modifier = modifier) {
-    Text(
-        text = title,
-        style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onSurface
-    )
-    Text(
-        text = secondLine,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+    value: String
+) {
+    SimpleListItem(
+        modifier = modifier,
+        title = title,
+        value = AnnotatedString(value)
     )
 }
+
+@Composable
+fun SimpleListItem(
+    modifier: Modifier = Modifier,
+    title: String,
+    value: AnnotatedString
+) {
+    SimpleListItem(
+        modifier = modifier,
+        title = title,
+        content = {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    )
+}
+
+
+@Composable
+fun SimpleListItem(
+    modifier: Modifier = Modifier,
+    title: String,
+    content: @Composable () -> Unit
+) {
+    Column(
+        modifier = modifier
+            .padding(
+                horizontal = Dimensions.HorizontalPadding,
+                vertical = Dimensions.VerticalPadding
+            )
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+        content()
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
 private fun SimpleListItemPreview() {
     CommonTheme {
         SimpleListItem(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(vertical = 16.dp, horizontal = 24.dp),
             title = "Foo Bar",
-            secondLine = "Hello World!"
+            value = "Hello World!"
         )
     }
 }
