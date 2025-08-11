@@ -38,11 +38,14 @@ internal data class Element(
         TEXT,
         BOLD("**", "(\\*\\*)", 2),
         ITALIC("__", "(__)", 2),
-        LINK(pattern = "(\\[(.+)]\\((.+)\\))", skipStep = 1);
+        // Match [text](url) where text excludes ']' and url excludes ')',
+        // so each group stops at its nearest closing delimiter.
+        LINK(pattern = "(\\[([^\\]]+)]\\(([^)]+)\\))", skipStep = 1);
 
         companion object {
 
-            private val values = entries.filterNot { it == TEXT }
+            private val values = entries
+                .filterNot { it == TEXT }
 
             fun fromMatch(match: String): Type? = values
                 .find { it.pattern.toRegex().matches(match) }

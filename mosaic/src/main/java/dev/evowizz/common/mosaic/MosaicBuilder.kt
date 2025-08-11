@@ -26,8 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 
 /**
- * Class used to parse and build Mosaic text into [AnnotatedString]. A custom [linkAnnotationTag]
- * can be provided to customize link annotations.
+ * Class used to parse and build Mosaic text into [AnnotatedString].
  *
  * Supported types are:
  * ```
@@ -36,9 +35,7 @@ import androidx.compose.ui.text.style.TextDecoration
  * [link](https://example.com)
  * ```
  */
-class MosaicBuilder(
-    private val linkAnnotationTag: String = "URL"
-) {
+class MosaicBuilder() {
 
     /**
      * Build [input] if it contains Mosaic types.

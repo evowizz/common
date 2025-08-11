@@ -59,10 +59,6 @@ internal object MosaicParser {
 
                     children.addAll(findChildElements(linkText, regex, iterator))
 
-                    if (children.isNotEmpty()) {
-                        iterator.skip(children.size)
-                    }
-
                     lastIndex = range.end
                     elements.add(Element(type, linkUrl, children))
                 }
@@ -70,15 +66,18 @@ internal object MosaicParser {
                     val textStart = range.end
                     val textEnd = input.indexOf(type.mark, startIndex = range.end)
 
-                    if (!iterator.hasNext() || textEnd == -1) continue // This is just text
+                    if (!iterator.hasNext() || textEnd == -1) {
+                        // Unbalanced mark: treat the mark itself as text and continue
+                        elements.add(Element(Element.Type.TEXT, input.substring(range.start, range.end)))
+                        lastIndex = range.end
+                        continue
+                    }
 
                     text = input.substring(textStart, textEnd)
                     children.addAll(findChildElements(text, regex, iterator))
 
-                    // Skip elements in iterator to avoid duplicates
-                    if (children.isNotEmpty()) {
-                        iterator.skip(children.size)
-                    }
+                    // Skip the closing mark of the current element to avoid duplicate processing
+                    iterator.skip(1)
 
                     lastIndex = textEnd + type.mark.length
                     elements.add(Element(type, text, children))
@@ -107,4 +106,4 @@ internal object MosaicParser {
     }
 }
 
-private fun Iterator<Any>.skip(number: Int) = repeat(number) { if (hasNext()) next() }
+private fun <T> Iterator<T>.skip(number: Int) = repeat(number) { if (hasNext()) next() }

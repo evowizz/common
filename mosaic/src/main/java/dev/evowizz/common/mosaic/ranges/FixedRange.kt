@@ -19,7 +19,7 @@ package dev.evowizz.common.mosaic.ranges
 /**
  * FixedRange is a simplified alternative to [IntRange].
  *
- * IntRange contains [IntRange.endInclusive] & [IntRange.last]. Bot of them are inclusive, and
+ * IntRange contains [IntRange.endInclusive] & [IntRange.last]. Both of them are inclusive, and
  * `endInclusive` causes a warning.
  *
  * The purpose of this class is to fix these little annoyance, and it should remain internal.
