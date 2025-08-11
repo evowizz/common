@@ -16,17 +16,18 @@
 
 package dev.evowizz.common.mosaic
 
-import android.text.SpannableStringBuilder
-import android.text.SpannedString
-import android.text.style.URLSpan
-import androidx.core.text.bold
-import androidx.core.text.buildSpannedString
-import androidx.core.text.inSpans
-import androidx.core.text.italic
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 
 /**
- * Class used to parse and build Mosaic text into [SpannedString]. A custom [urlSpanProvider]
- * can be provided to use an alternative to the default [URLSpan].
+ * Class used to parse and build Mosaic text into [AnnotatedString]. A custom [linkAnnotationTag]
+ * can be provided to customize link annotations.
  *
  * Supported types are:
  * ```
@@ -36,57 +37,69 @@ import androidx.core.text.italic
  * ```
  */
 class MosaicBuilder(
-    private val urlSpanProvider: URLSpanProvider = DefaultUrlSpanProvider
+    private val linkAnnotationTag: String = "URL"
 ) {
 
     /**
      * Build [input] if it contains Mosaic types.
      *
-     * @return parsed [input] as a [SpannedString]
+     * @return parsed [input] as an [AnnotatedString]
      */
-    fun build(input: CharSequence): SpannedString {
+    fun build(input: CharSequence): AnnotatedString {
         val parsedMosaic = MosaicParser.parse(input)
 
-        return buildSpannedString {
-            buildChildElements(parsedMosaic.elements, this)
+        return buildAnnotatedString {
+            buildChildren(parsedMosaic.elements, this)
         }
     }
 
-    private fun buildChildElements(elements: List<Element>, builder: SpannableStringBuilder) {
-        for (child in elements) {
+    private fun buildChildren(children: List<Element>, builder: AnnotatedString.Builder) {
+        for (child in children) {
             buildElement(child, builder)
         }
     }
 
     private fun buildElement(
         element: Element,
-        builder: SpannableStringBuilder
-    ): SpannableStringBuilder {
+        builder: AnnotatedString.Builder
+    ): AnnotatedString.Builder {
         return builder.apply {
+            val start = length
+            if (element.type != Element.Type.TEXT) {
+                // All elements except TEXT may have children, so we need to build them first
+                buildChildren(element.children, this)
+            }
 
             when (element.type) {
-                Element.Type.LINK -> url(element.text) { buildChildElements(element.elements, builder) }
-                Element.Type.BOLD -> bold { buildChildElements(element.elements, builder) }
-                Element.Type.ITALIC -> italic { buildChildElements(element.elements, builder) }
-                Element.Type.TEXT -> append(element.text)
+                Element.Type.LINK -> {
+                    addLink(
+                        url = LinkAnnotation.Url(
+                            url = element.text.toString(),
+                            styles = TextLinkStyles(
+                                style = SpanStyle(textDecoration = TextDecoration.Underline)
+                            )
+                        ),
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.BOLD -> {
+                    addStyle(
+                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.ITALIC -> {
+                    addStyle(
+                        style = SpanStyle(fontStyle = FontStyle.Italic),
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.TEXT -> append(element.text.toString())
             }
         }
     }
 
-    private fun SpannableStringBuilder.url(
-        url: CharSequence,
-        builderAction: SpannableStringBuilder.() -> Unit
-    ) = inSpans(urlSpanProvider.provide(url.toString()), builderAction = builderAction)
-
-
-    companion object {
-        private val DefaultUrlSpanProvider = URLSpanProvider { URLSpan(it) }
-    }
-}
-
-/**
- * Provider of an instance of URLSpan or a derived class.
- */
-fun interface URLSpanProvider {
-    fun provide(url: String): URLSpan
 }

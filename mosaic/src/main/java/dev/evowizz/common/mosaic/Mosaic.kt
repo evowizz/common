@@ -27,7 +27,7 @@ internal data class Mosaic(val elements: List<Element>)
 internal data class Element(
     val type: Type,
     val text: CharSequence,
-    val elements: List<Element> = emptyList()
+    val children: List<Element> = emptyList()
 ) {
 
     internal enum class Type(
@@ -42,7 +42,7 @@ internal data class Element(
 
         companion object {
 
-            private val values = values().filterNot { it == TEXT }
+            private val values = entries.filterNot { it == TEXT }
 
             fun fromMatch(match: String): Type? = values
                 .find { it.pattern.toRegex().matches(match) }

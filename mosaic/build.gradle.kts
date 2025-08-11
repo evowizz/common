@@ -16,6 +16,7 @@
 
 plugins {
     id("common.android.library")
+    id("common.android.library.compose")
     id("common.android.library.publishing")
     kotlin("android")
 }
@@ -26,5 +27,5 @@ android {
 
 dependencies {
     api(libs.androidx.annotation)
-    api(libs.androidx.core)
+    api(libs.androidx.compose.ui)
 }

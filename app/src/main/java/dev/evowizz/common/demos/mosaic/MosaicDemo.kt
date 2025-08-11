@@ -16,10 +16,36 @@
 
 package dev.evowizz.common.demos.mosaic
 
+import dev.evowizz.common.mosaic.MosaicBuilder
 import dev.evowizz.common.ui.components.DemoListScope
 
 fun DemoListScope.MosaicDemo() {
     module("Mosaic")
 
-    note(isError = true, "Mosaic is not compatible with Jetpack Compose.")
+    val builder = MosaicBuilder()
+
+    val mosaicText = "**bold**," + "\n" +
+            "__italic__," + "\n" +
+            "__**bold & italic**__," + "\n" +
+            "**[__Link__](https://example.com)**"
+
+    demo(
+        title = "MosaicBuilder().build(...)",
+        value = builder.build(mosaicText)
+    )
+
+    demo(
+        title = "Simple bold text",
+        value = builder.build("This is **bold** text!")
+    )
+
+    demo(
+        title = "Simple italic text", 
+        value = builder.build("This is __italic__ text!")
+    )
+
+    demo(
+        title = "Link annotation",
+        value = builder.build("Visit [Google](https://google.com) for search!")
+    )
 }

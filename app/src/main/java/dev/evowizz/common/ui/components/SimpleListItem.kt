@@ -24,6 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.evowizz.common.ui.theme.CommonTheme
@@ -50,10 +53,15 @@ fun SimpleListItem(
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onSurface
     )
-    Text(
+    val uriHandler = LocalUriHandler.current
+    ClickableText(
         text = secondLine,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+        onClick = { offset ->
+            val annotations = secondLine.getStringAnnotations(start = offset, end = offset)
+            val url = annotations.firstOrNull { it.tag == "URL" }?.item
+            if (url != null) uriHandler.openUri(url)
+        }
     )
 }
 
