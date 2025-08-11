@@ -16,42 +16,91 @@
 
 package dev.evowizz.common.mosaic
 
-/**
- * Parsed Mosaic element tree.
- */
-internal data class MosaicTree(val elements: List<Element>)
+import androidx.compose.runtime.Stable
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.buildAnnotatedString
 
 /**
- * Element holds different Mosaic types.
+ * Build Mosaic text into an AnnotatedString.
+ *
+ * Supported types are:
+ * **bold**, __italic__, and [link](https://example.com). Nesting is supported.
  */
-internal data class Element(
-    val type: Type,
-    val text: CharSequence,
-    val children: List<Element> = emptyList()
+@Stable
+class Mosaic(
+    private val styles: MosaicStyles = MosaicStyles.Default
 ) {
 
-    internal enum class Type(
-        val mark: String = "",
-        val pattern: String = "",
-        val skipStep: Int = 0
-    ) {
-        TEXT,
-        BOLD("**", "(\\*\\*)", 2),
-        ITALIC("__", "(__)", 2),
-        // Match [text](url) where text excludes ']' and url excludes ')',
-        // so each group stops at its nearest closing delimiter.
-        LINK(pattern = "(\\[([^\\]]+)]\\(([^)]+)\\))", skipStep = 1);
+    /**
+     * Build [input] if it contains Mosaic types.
+     *
+     * @return parsed [input] as an [AnnotatedString]
+     */
+    fun parse(input: CharSequence): AnnotatedString {
+        val parsedMosaic = MosaicParser.parse(input)
 
-        companion object {
+        return buildAnnotatedString {
+            buildChildren(parsedMosaic.elements, this)
+        }
+    }
 
-            private val values = entries
-                .filterNot { it == TEXT }
+    private fun buildChildren(children: List<Element>, builder: AnnotatedString.Builder) {
+        for (child in children) {
+            buildElement(child, builder)
+        }
+    }
 
-            fun fromMatch(match: String): Type? = values
-                .find { it.pattern.toRegex().matches(match) }
+    private fun buildElement(
+        element: Element,
+        builder: AnnotatedString.Builder
+    ): AnnotatedString.Builder {
+        return builder.apply {
+            val start = length
+            if (element.type != Element.Type.TEXT) {
+                // All elements except TEXT may have children, so we need to build them first
+                buildChildren(element.children, this)
+            }
 
-            fun getMatchAnyPattern() = values
-                .joinToString(separator = "|", prefix = "(", postfix = ")") { it.pattern }
+            when (element.type) {
+                Element.Type.LINK -> {
+                    addLink(
+                        url = LinkAnnotation.Url(
+                            url = element.text.toString(),
+                            styles = styles.link
+                        ),
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.BOLD -> {
+                    addStyle(
+                        style = styles.bold,
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.ITALIC -> {
+                    addStyle(
+                        style = styles.italic,
+                        start = start,
+                        end = length
+                    )
+                }
+                Element.Type.TEXT -> append(element.text.toString())
+            }
+        }
+    }
+
+    companion object {
+        /**
+         * Convenience API to parse [text] using optional [styles].
+         */
+        fun parse(
+            text: CharSequence,
+            styles: MosaicStyles = MosaicStyles.Default
+        ): AnnotatedString {
+            return Mosaic(styles).parse(text)
         }
     }
 }

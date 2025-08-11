@@ -4,6 +4,7 @@
 
 package dev.evowizz.common.mosaic
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontStyle
@@ -13,6 +14,7 @@ import androidx.compose.ui.text.style.TextDecoration
 /**
  * Styles used when building a Mosaic [androidx.compose.ui.text.AnnotatedString].
  */
+@Immutable
 data class MosaicStyles(
     val bold: SpanStyle,
     val italic: SpanStyle,
@@ -26,4 +28,3 @@ data class MosaicStyles(
         )
     }
 }
-

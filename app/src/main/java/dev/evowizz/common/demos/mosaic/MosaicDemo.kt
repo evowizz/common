@@ -18,7 +18,7 @@ package dev.evowizz.common.demos.mosaic
 
 import androidx.compose.runtime.Composable
 import dev.evowizz.common.R
-import dev.evowizz.common.mosaic.MosaicBuilder
+import dev.evowizz.common.mosaic.LocalMosaic
 import dev.evowizz.common.mosaic.mosaicPluralStringResource
 import dev.evowizz.common.mosaic.mosaicStringResource
 import dev.evowizz.common.ui.components.Category
@@ -28,7 +28,7 @@ import dev.evowizz.common.ui.components.SimpleListItem
 fun MosaicDemo() {
     Category("Mosaic")
 
-    val builder = MosaicBuilder()
+    val mosaic = LocalMosaic.current
 
     val mosaicText = "**bold**," + "\n" +
         "__italic__," + "\n" +
@@ -36,24 +36,24 @@ fun MosaicDemo() {
         "**[__Link__](https://example.com)**"
 
     SimpleListItem(
-        title = "MosaicBuilder().build(...)",
-        value = builder.build(mosaicText)
+        title = "Mosaic().parse(...)",
+        value = mosaic.parse(mosaicText)
     )
 
     SimpleListItem(
         title = "Simple bold text",
-        value = builder.build("This is **bold** text!")
+        value = mosaic.parse("This is **bold** text!")
     )
 
     SimpleListItem(
         title = "Simple italic text",
-        value = builder.build("This is __italic__ text!")
+        value = mosaic.parse("This is __italic__ text!")
 
     )
 
     SimpleListItem(
         title = "Link annotation",
-        value = builder.build("Visit [Google](https://google.com) for search!")
+        value = mosaic.parse("Visit [Google](https://google.com) for search!")
 
     )
 
