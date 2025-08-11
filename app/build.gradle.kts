@@ -35,6 +35,15 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
     implementation(projects.core)
     implementation(projects.hashing)
     implementation(projects.mosaic)
@@ -43,21 +52,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
 
-    implementation(libs.androidx.activity.compose)
-
-    // TODO : Remove these dependency once we upgrade to Android Studio Dolphin b/228889042
-    // These dependencies are currently necessary to render Compose previews
-    debugImplementation(libs.androidx.customview.poolingcontainer)
     debugImplementation(libs.androidx.lifecycle.viewModelCompose)
     debugImplementation(libs.androidx.savedstate.ktx)
-
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.foundation.layout)
-    implementation(libs.androidx.compose.material.iconsExtended)
-    implementation(libs.androidx.compose.material3)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui.util)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.runtime.livedata)
 }

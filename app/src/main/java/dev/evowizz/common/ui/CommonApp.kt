@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.add
-import androidx.compose.foundation.layout.consumedWindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
@@ -37,10 +37,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.evowizz.common.R
-import dev.evowizz.common.ui.components.DemoList
 import dev.evowizz.common.demos.core.CoreDemo
 import dev.evowizz.common.demos.hashing.HashingDemo
 import dev.evowizz.common.demos.mosaic.MosaicDemo
+import dev.evowizz.common.ui.components.DemoList
 import dev.evowizz.common.ui.theme.CommonTheme
 
 @Composable
@@ -92,7 +92,7 @@ private fun CommonContent() {
         DemoList(
             modifier = Modifier
                 .fillMaxSize()
-                .consumedWindowInsets(innerPadding),
+                .consumeWindowInsets(innerPadding),
             contentPadding = innerPadding
         ) {
             CoreDemo()
