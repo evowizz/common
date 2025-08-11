@@ -17,9 +17,9 @@
 package dev.evowizz.common.mosaic
 
 /**
- * Multiple elements form the Mosaic.
+ * Parsed Mosaic element tree.
  */
-internal data class Mosaic(val elements: List<Element>)
+internal data class MosaicTree(val elements: List<Element>)
 
 /**
  * Element holds different Mosaic types.

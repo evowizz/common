@@ -18,12 +18,8 @@ package dev.evowizz.common.mosaic
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
+ 
 
 /**
  * Class used to parse and build Mosaic text into [AnnotatedString].
@@ -35,7 +31,9 @@ import androidx.compose.ui.text.style.TextDecoration
  * [link](https://example.com)
  * ```
  */
-class MosaicBuilder() {
+class MosaicBuilder(
+    private val styles: MosaicStyles = MosaicStyles.Default
+) {
 
     /**
      * Build [input] if it contains Mosaic types.
@@ -72,9 +70,7 @@ class MosaicBuilder() {
                     addLink(
                         url = LinkAnnotation.Url(
                             url = element.text.toString(),
-                            styles = TextLinkStyles(
-                                style = SpanStyle(textDecoration = TextDecoration.Underline)
-                            )
+                            styles = styles.link
                         ),
                         start = start,
                         end = length
@@ -82,14 +78,14 @@ class MosaicBuilder() {
                 }
                 Element.Type.BOLD -> {
                     addStyle(
-                        style = SpanStyle(fontWeight = FontWeight.Bold),
+                        style = styles.bold,
                         start = start,
                         end = length
                     )
                 }
                 Element.Type.ITALIC -> {
                     addStyle(
-                        style = SpanStyle(fontStyle = FontStyle.Italic),
+                        style = styles.italic,
                         start = start,
                         end = length
                     )

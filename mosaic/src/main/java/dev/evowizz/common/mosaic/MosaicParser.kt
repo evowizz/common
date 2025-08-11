@@ -20,13 +20,13 @@ import dev.evowizz.common.mosaic.ranges.fixedRange
 
 internal object MosaicParser {
 
-    fun parse(input: CharSequence): Mosaic {
+    fun parse(input: CharSequence): MosaicTree {
         val elements = mutableListOf<Element>()
 
         val regex = Element.Type.getMatchAnyPattern().toRegex()
 
         elements.addAll(findElements(input, regex))
-        return Mosaic(elements)
+        return MosaicTree(elements)
     }
 
     private fun findElements(input: CharSequence, regex: Regex): Collection<Element> {
