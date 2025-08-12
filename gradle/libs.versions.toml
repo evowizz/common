@@ -1,6 +1,7 @@
 [versions]
 agp = "8.12.0"
 kotlin = "2.2.0"
+mavenPublish = "0.34.0"
 
 # Compose managed via BoM; pick a modern stable
 androidxComposeBom = "2025.07.00"
@@ -51,3 +52,4 @@ androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+mavenpublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

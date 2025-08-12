@@ -57,9 +57,5 @@ gradlePlugin {
             id = "common.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
-        register("androidLibraryPublishing") {
-            id = "common.android.library.publishing"
-            implementationClass = "AndroidLibraryPublishingConventionPlugin"
-        }
     }
 }

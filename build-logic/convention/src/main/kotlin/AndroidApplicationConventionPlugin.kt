@@ -35,7 +35,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 defaultConfig {
                     targetSdk = Configuration.compileSdk
 
-                    versionName = Configuration.version
+                    versionName = findProperty("VERSION_NAME")?.toString() ?: "1.0"
                     versionCode = 1
                 }
             }

@@ -17,8 +17,7 @@
 plugins {
     id("common.android.library")
     id("common.android.library.compose")
-    id("common.android.library.publishing")
-    kotlin("android")
+    alias(libs.plugins.mavenpublish)
 }
 
 android {

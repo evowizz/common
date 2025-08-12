@@ -17,17 +17,6 @@
 package dev.evowizz.common.config
 
 object Configuration {
-    const val version = "2.2.0"
-    const val description = "Set of small tools for Android"
-
-    const val githubUrl = "https://github.com/evowizz/common"
-    const val issueUrl = "$githubUrl/issues"
-    const val gitUrl = "$githubUrl.git"
-
-    const val developerId = "evowizz"
-    const val developerName = "Dylan Roussel"
-    const val developerEmail = "mail@evowizz.dev"
-
     const val minSdk = 24
     const val compileSdk = 36
 }
