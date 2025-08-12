@@ -24,7 +24,7 @@ object NavigationBar {
     /**
      * Returns the mode of the navigation bar.
      *
-     * @param context Context used to retrieve the [ContentResolver][android.content.ContentResolver]
+     * @param context Context used to retrieve the [android.content.ContentResolver]
      *
      * @return One of [NavigationBarMode.MODE_3BUTTON],[NavigationBarMode.MODE_2BUTTON], [NavigationBarMode.MODE_GESTURAL] or [NavigationBarMode.MODE_UNKNOWN]
      */
@@ -41,7 +41,9 @@ enum class NavigationBarMode(private val mode: Int) {
     MODE_GESTURAL(2);
 
     companion object {
-        private val map = values().associateBy(NavigationBarMode::mode)
+        private val map = entries
+            .associateBy(NavigationBarMode::mode)
+
         fun fromInt(mode: Int) = map[mode] ?: MODE_UNKNOWN
     }
 }
