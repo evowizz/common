@@ -33,7 +33,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
 
                 defaultConfig {
-                    targetSdk = Configuration.targetSdk
+                    targetSdk = Configuration.compileSdk
 
                     versionName = Configuration.version
                     versionCode = 1
