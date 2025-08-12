@@ -50,8 +50,7 @@ internal object MosaicParser {
             val children = mutableListOf<Element>()
             when (type) {
                 Element.Type.LINK -> {
-                    val linkResult =
-                        type.pattern.toRegex().find(mark) ?: error("Malformed link mark")
+                    val linkResult = type.regex.find(mark) ?: error("Malformed link mark")
 
                     val linkText = linkResult.groupValues[2]
                     val linkUrl = linkResult.groupValues[3]

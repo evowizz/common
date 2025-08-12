@@ -32,15 +32,15 @@ internal data class Element(
 
     internal enum class Type(
         val mark: String = "",
-        val pattern: String = "",
+        val regex: Regex = Regex(""),
         val skipStep: Int = 0
     ) {
         TEXT,
-        BOLD("**", "(\\*\\*)", 2),
-        ITALIC("__", "(__)", 2),
+        BOLD("**", Regex("(\\*\\*)"), 2),
+        ITALIC("__", Regex("(__)"), 2),
         // Match [text](url) where text excludes ']' and url excludes ')',
         // so each group stops at its nearest closing delimiter.
-        LINK(pattern = "(\\[([^\\]]+)]\\(([^)]+)\\))", skipStep = 1);
+        LINK(regex = Regex("(\\[([^]]+)]\\(([^)]+)\\))"), skipStep = 1);
 
         companion object {
 
@@ -48,10 +48,10 @@ internal data class Element(
                 .filterNot { it == TEXT }
 
             fun fromMatch(match: String): Type? = values
-                .find { it.pattern.toRegex().matches(match) }
+                .find { it.regex.matches(match) }
 
             fun getMatchAnyPattern() = values
-                .joinToString(separator = "|", prefix = "(", postfix = ")") { it.pattern }
+                .joinToString(separator = "|", prefix = "(", postfix = ")") { it.regex.pattern }
         }
     }
 }
