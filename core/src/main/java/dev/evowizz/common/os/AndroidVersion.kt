@@ -19,25 +19,46 @@ package dev.evowizz.common.os
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
+import dev.evowizz.common.os.AndroidVersion.isAtLeastBaklava
+import dev.evowizz.common.os.AndroidVersion.isAtLeastPreRelease
 
 object AndroidVersion {
 
     /**
-     * Verify if [codename] is the current preview of the device or above.
+     * Deprecated: use [isAtLeastPreRelease] for codename-based preview checks.
+     * Only use API-level checks (e.g., [isAtLeastBaklava] or [Build.VERSION.SDK_INT]) for
+     * production builds.
      */
-    fun isAtLeastPreview(codename: String): Boolean {
-        val buildCodename = getCodename()
+    @Deprecated(
+        message = "Use isAtLeastPreRelease(codename) instead.",
+        replaceWith = ReplaceWith("isAtLeastPreRelease(codename)"),
+    )
+    fun isAtLeastPreview(codename: String): Boolean = isAtLeastPreRelease(codename)
 
-        return isPreview() && buildCodename >= codename
+    /**
+     * Checks whether the device build is at least the given preview [codename].
+     *
+     * Use API level checks (e.g., [isAtLeastBaklava] or [Build.VERSION.SDK_INT])
+     * for production feature gating; this is only useful if the build is a preview, and
+     * would always return `false` for stable releases.
+     */
+    fun isAtLeastPreRelease(codename: String): Boolean {
+        val buildCodename = getCodename().uppercase()
+        if (buildCodename == "REL") return false
+
+        val knownCodenames = getKnownCodenames()
+        val targetCodename = codename.uppercase()
+
+        if (knownCodenames.isNotEmpty()) {
+            return targetCodename in knownCodenames
+        }
+
+        return buildCodename >= targetCodename
     }
 
-    @Deprecated(
-        "Use \"isAtLeastPreview(String)\" instead",
-        ReplaceWith("isAtLeastPreview(codename.toString())")
-    )
-    fun isPreview(codename: Char): Boolean = isAtLeastPreview(codename.toString())
-
     fun isPreview(): Boolean = Build.VERSION.PREVIEW_SDK_INT > 0
+
+    fun isCanary(): Boolean = getCodename() == "CANARY"
 
     fun getCodename(): String = Build.VERSION.CODENAME
 
@@ -47,17 +68,33 @@ object AndroidVersion {
         // the real version for the API 32 which is `12L` (or 12.1)
         return when {
             isAtLeastT() -> Build.VERSION.RELEASE_OR_PREVIEW_DISPLAY
-            isAtLeastS_V2() -> "12L"
+            isAtLeastS2() -> "12L"
             else -> Build.VERSION.RELEASE_OR_CODENAME
         }
     }
 
-    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU, codename = "Tiramisu")
-    fun isAtLeastT(): Boolean = isAtLeast(Build.VERSION_CODES.TIRAMISU) ||
-            isAtLeastPreview("Tiramisu")
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.BAKLAVA)
+    fun isAtLeastBaklava(): Boolean = isAtLeast(Build.VERSION_CODES.BAKLAVA)
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+    fun isAtLeastV(): Boolean = isAtLeast(Build.VERSION_CODES.VANILLA_ICE_CREAM)
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    fun isAtLeastU(): Boolean = isAtLeast(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
+    fun isAtLeastT(): Boolean = isAtLeast(Build.VERSION_CODES.TIRAMISU)
+
+    @Suppress("FunctionName")
+    @Deprecated(
+        "Use isAtLeastS2() instead",
+        ReplaceWith("isAtLeastS2()")
+    )
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
+    fun isAtLeastS_V2(): Boolean = isAtLeastS2()
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
-    fun isAtLeastS_V2(): Boolean = isAtLeast(Build.VERSION_CODES.S_V2)
+    fun isAtLeastS2(): Boolean = isAtLeast(Build.VERSION_CODES.S_V2)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
     fun isAtLeastS(): Boolean = isAtLeast(Build.VERSION_CODES.S)
@@ -71,14 +108,30 @@ object AndroidVersion {
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
     fun isAtLeastP(): Boolean = isAtLeast(Build.VERSION_CODES.P)
 
+    @Suppress("FunctionName")
+    @Deprecated(
+        "Use isAtLeastOMR1() instead",
+        ReplaceWith("isAtLeastOMR1()")
+    )
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O_MR1)
-    fun isAtLeastO_MR1(): Boolean = isAtLeast(Build.VERSION_CODES.O_MR1)
+    fun isAtLeastO_MR1(): Boolean = isAtLeastOMR1()
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O_MR1)
+    fun isAtLeastOMR1(): Boolean = isAtLeast(Build.VERSION_CODES.O_MR1)
 
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O)
     fun isAtLeastO(): Boolean = isAtLeast(Build.VERSION_CODES.O)
 
+    @Suppress("FunctionName")
+    @Deprecated(
+        "Use isAtLeastNMR1() instead",
+        ReplaceWith("isAtLeastNMR1()")
+    )
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N_MR1)
-    fun isAtLeastN_MR1(): Boolean = isAtLeast(Build.VERSION_CODES.N_MR1)
+    fun isAtLeastN_MR1(): Boolean = isAtLeastNMR1()
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N_MR1)
+    fun isAtLeastNMR1(): Boolean = isAtLeast(Build.VERSION_CODES.N_MR1)
 
     @ChecksSdkIntAtLeast(parameter = 0)
     fun isAtLeast(api: Int): Boolean = Build.VERSION.SDK_INT >= api
@@ -86,5 +139,18 @@ object AndroidVersion {
     @ChecksSdkIntAtLeast(parameter = 0, lambda = 1)
     inline fun whenAtLeast(api: Int, action: () -> Unit) {
         if (isAtLeast(api)) action()
+    }
+
+    private const val KNOWN_CODENAMES_PROPERTY = "ro.build.version.known_codenames"
+
+    /**
+     * Returns the list of codenames known by the device, sourced from
+     * `ro.build.version.known_codenames`. The list is uppercased for case-insensitive checks.
+     */
+    private fun getKnownCodenames(): List<String> {
+        return SystemProperties.getOrNull(KNOWN_CODENAMES_PROPERTY)
+            ?.split(",")
+            ?.map { it.trim().uppercase() }
+            ?: emptyList()
     }
 }

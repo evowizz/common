@@ -44,10 +44,17 @@ fun CoreDemo() {
             value = AndroidVersion.getVersionDisplay()
         )
     }
+
+    SimpleListItem(
+        title = "AndroidVersion.isCanary()",
+        value = AndroidVersion.isCanary().toString()
+    )
+
     SimpleListItem(
         title = "AndroidVersion.getCodename()",
         value = AndroidVersion.getCodename()
     )
+
     SimpleListItem(
         title = "AndroidVersion.isPreview()",
         value = AndroidVersion.isPreview().toString()
@@ -57,6 +64,7 @@ fun CoreDemo() {
         title = "SystemProperties.getOrElse(...)",
         value = SystemProperties.getOrElse(systemProperty, Build.UNKNOWN)
     )
+
     SimpleListItem(
         title = "SystemProperties.getOrNull(...)",
         value = SystemProperties.getOrNull(faultySystemProperty) ?: "foo"
