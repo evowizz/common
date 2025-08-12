@@ -17,35 +17,109 @@
 package dev.evowizz.common.hashing
 
 import android.util.Log
-import dev.evowizz.common.extensions.toHexString
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
+import java.nio.ByteBuffer
+import java.nio.charset.Charset
 import java.security.MessageDigest
 
 object Hashing {
     private const val TAG = "Hashing"
+    private const val BUFFER_SIZE = 8 * 1024
 
     /**
-     * Hash the given source with the given algorithm
-     *
-     * @param source The string to hash
-     * @param algorithm The Algorithm to use to hash source
+     * Obtain a [MessageDigest] instance for the given [algorithm].
+     * Returns null if the algorithm is not supported or an error occurs.
      */
-    fun hash(source: String, algorithm: Algorithm): String = hash(source.toByteArray(), algorithm)
-
-    /**
-     * Hash the given bytes with the given algorithm
-     *
-     * @param bytes The ByteArray to hash
-     * @param algorithm The Algorithm to use to hash bytes
-     */
-    fun hash(bytes: ByteArray, algorithm: Algorithm): String {
-        val messageDigest = try {
+    private fun obtainDigest(algorithm: Algorithm): MessageDigest? {
+        return try {
             MessageDigest.getInstance(algorithm.algo)
         } catch (e: Exception) {
-            Log.e(TAG, "Could not create digest for algorithm: $algorithm, returning empty string.")
-            return ""
+            Log.e(TAG, "Could not create digest for algorithm: ${algorithm.algo}", e)
+            return null
         }
+    }
 
-        return messageDigest.digest(bytes).toHexString()
+    /** Compute the digest for the given [source] using [algorithm] and [charset]. */
+    fun digest(source: String, algorithm: Algorithm, charset: Charset = Charsets.UTF_8): ByteArray =
+        digest(source.toByteArray(charset), algorithm)
+
+    /** Compute the digest for the given [bytes] using [algorithm]. */
+    fun digest(bytes: ByteArray, algorithm: Algorithm): ByteArray {
+        val messageDigest = obtainDigest(algorithm) ?: return ByteArray(0)
+        return messageDigest.digest(bytes)
+    }
+
+    /**
+     * Compute the digest of all bytes from the provided [InputStream] using the given [algorithm].
+     * The stream is not closed by this method.
+     */
+    fun digest(input: InputStream, algorithm: Algorithm): ByteArray {
+        val messageDigest = obtainDigest(algorithm) ?: return ByteArray(0)
+
+        val buffer = ByteArray(BUFFER_SIZE)
+        while (true) {
+            val read = try {
+                input.read(buffer)
+            } catch (e: Exception) {
+                Log.e(TAG, "Error while reading InputStream for hashing.", e)
+                return ByteArray(0)
+            }
+            if (read <= 0) break
+            messageDigest.update(buffer, 0, read)
+        }
+        return messageDigest.digest()
+    }
+
+    /** Compute the digest of the provided [File] using the given [algorithm]. */
+    fun digest(file: File, algorithm: Algorithm): ByteArray =
+        FileInputStream(file).use { fis -> digest(fis, algorithm) }
+
+    /**
+     * Compute the digest of the remaining bytes of [buffer] using [algorithm].
+     * The original buffer's position and limit remain unchanged.
+     */
+    fun digest(buffer: ByteBuffer, algorithm: Algorithm): ByteArray {
+        val messageDigest = obtainDigest(algorithm) ?: return ByteArray(0)
+        // Use a read-only duplicate so the caller's buffer state is preserved
+        messageDigest.update(buffer.asReadOnlyBuffer())
+        return messageDigest.digest()
+    }
+
+    /** Returns a hex string of the digest for [source] using [algorithm] and [charset]. */
+    fun hash(source: String, algorithm: Algorithm, charset: Charset = Charsets.UTF_8): String =
+        digest(source, algorithm, charset).toHexString()
+
+    /** Returns a hex string of the digest for [bytes] using [algorithm]. */
+    fun hash(bytes: ByteArray, algorithm: Algorithm): String =
+        digest(bytes, algorithm).toHexString()
+
+    /** Returns a hex string of the digest for all bytes read from [input] using [algorithm]. */
+    fun hash(input: InputStream, algorithm: Algorithm): String =
+        digest(input, algorithm).toHexString()
+
+    /** Returns a hex string of the digest for the contents of [file] using [algorithm]. */
+    fun hash(file: File, algorithm: Algorithm): String =
+        digest(file, algorithm).toHexString()
+
+    /** Returns a hex string of the digest for the remaining bytes of [buffer] using [algorithm]. */
+    fun hash(buffer: ByteBuffer, algorithm: Algorithm): String =
+        digest(buffer, algorithm).toHexString()
+
+    /**
+     * Constant-time comparison for digest byte arrays.
+     */
+    fun isEqual(a: ByteArray, b: ByteArray): Boolean = MessageDigest.isEqual(a, b)
+
+    /**
+     * Constant-time comparison for hex-encoded digests (case-insensitive on input).
+     * Returns false if either input is not valid hex.
+     */
+    fun isEqual(aHex: String, bHex: String): Boolean {
+        val a = aHex.hexToByteArray()
+        val b = bHex.hexToByteArray()
+        return isEqual(a, b)
     }
 }
 
